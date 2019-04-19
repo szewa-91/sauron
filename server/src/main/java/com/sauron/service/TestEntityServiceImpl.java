@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class TestEntitySerivceImpl implements TestEntitySerivce {
+public class TestEntityServiceImpl implements TestEntityService {
 
     private static final String INCORRECT_ID = "Incorrect ID";
 
     private TestEntityRepo testEntityRepo;
 
-    public TestEntitySerivceImpl(TestEntityRepo testEntityRepo) {
+    public TestEntityServiceImpl(TestEntityRepo testEntityRepo) {
         this.testEntityRepo = testEntityRepo;
     }
 

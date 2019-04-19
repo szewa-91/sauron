@@ -15,15 +15,15 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public class TestEntitySerivceTest {
+public class TestEntityServiceTest {
 
-    private TestEntitySerivce testEntitySerivce;
+    private TestEntityService testEntityService;
     private TestEntityRepo testEntityRepo;
 
     @Before
     public void setOff() {
         testEntityRepo = mock(TestEntityRepo.class);
-        testEntitySerivce = new TestEntitySerivceImpl(testEntityRepo);
+        testEntityService = new TestEntityServiceImpl(testEntityRepo);
     }
 
     @Test
@@ -37,9 +37,9 @@ public class TestEntitySerivceTest {
         TestEntityPojo expeted = new TestEntityPojo("First");
 
         //when
-        TestEntityPojo actual = testEntitySerivce.getTestEntity(existingId);
+        TestEntityPojo actual = testEntityService.getTestEntity(existingId);
 
-        //than
+        //then
         assertEquals(expeted, actual);
     }
 
@@ -51,9 +51,9 @@ public class TestEntitySerivceTest {
         //when
         Mockito.when(testEntityRepo.findTestEntityById(999L))
                 .thenReturn(Optional.empty());
-        Executable action = () -> testEntitySerivce.getTestEntity(missingId);
+        Executable action = () -> testEntityService.getTestEntity(missingId);
 
-        //than
+        //then
         Assertions.assertThrows(EntityNotFoundException.class, action);
     }
 }

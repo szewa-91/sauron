@@ -2,7 +2,7 @@ package com.sauron.service;
 
 import com.sauron.model.TestEntityPojo;
 
-public interface TestEntitySerivce {
+public interface TestEntityService {
 
     TestEntityPojo getTestEntity(long id);
 }
