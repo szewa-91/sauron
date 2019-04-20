@@ -1,16 +1,11 @@
 package com.sauron.model.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TESTENTITIES")
-public class TestEntity extends BaseEntity{
+public class Transaction extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +16,10 @@ public class TestEntity extends BaseEntity{
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    public TestEntity() {
+    public Transaction() {
     }
 
-    public TestEntity(Long id, @NotNull String name) {
+    public Transaction(Long id, @NotNull String name) {
         this.id = id;
         this.name = name;
     }
@@ -47,7 +42,7 @@ public class TestEntity extends BaseEntity{
 
     @Override
     public String toString() {
-        return "TestEntity{" +
+        return "Transaction{" +
                 "id=" + id +
                 '}';
     }

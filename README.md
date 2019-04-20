@@ -8,4 +8,3 @@ In the Land of Mordor where the Shadows lie
 One App to rule them all, one App to find them,  
 One App to bring them all and in the darkness bind them  
 In the Land of Mordor where the Shadows lie.
-

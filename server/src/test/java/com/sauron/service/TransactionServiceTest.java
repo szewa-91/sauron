@@ -1,9 +1,9 @@
 package com.sauron.service;
 
 import com.sauron.exception.EntityNotFoundException;
-import com.sauron.model.TestEntityPojo;
-import com.sauron.model.entities.TestEntity;
-import com.sauron.repo.TestEntityRepo;
+import com.sauron.model.TransactionDto;
+import com.sauron.model.entities.Transaction;
+import com.sauron.repo.TransactionRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -15,15 +15,15 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public class TestEntityServiceTest {
+public class TransactionServiceTest {
 
-    private TestEntityService testEntityService;
-    private TestEntityRepo testEntityRepo;
+    private TransactionService transactionService;
+    private TransactionRepository transactionRepository;
 
     @Before
     public void setOff() {
-        testEntityRepo = mock(TestEntityRepo.class);
-        testEntityService = new TestEntityServiceImpl(testEntityRepo);
+        transactionRepository = mock(TransactionRepository.class);
+        transactionService = new TransactionServiceImpl(transactionRepository);
     }
 
     @Test
@@ -31,13 +31,13 @@ public class TestEntityServiceTest {
         //given
         long existingId = 1L;
 
-        Optional<TestEntity> entity = Optional.ofNullable(new TestEntity(1L,"First"));
-        Mockito.when(testEntityRepo.findTestEntityById(1L))
+        Optional<Transaction> entity = Optional.of(new Transaction(1L, "First"));
+        Mockito.when(transactionRepository.findTransactionById(1L))
                 .thenReturn(entity);
-        TestEntityPojo expeted = new TestEntityPojo("First");
+        TransactionDto expeted = new TransactionDto("First");
 
         //when
-        TestEntityPojo actual = testEntityService.getTestEntity(existingId);
+        TransactionDto actual = transactionService.getTransaction(existingId);
 
         //then
         assertEquals(expeted, actual);
@@ -49,9 +49,9 @@ public class TestEntityServiceTest {
         long missingId = 999L;
 
         //when
-        Mockito.when(testEntityRepo.findTestEntityById(999L))
+        Mockito.when(transactionRepository.findTransactionById(999L))
                 .thenReturn(Optional.empty());
-        Executable action = () -> testEntityService.getTestEntity(missingId);
+        Executable action = () -> transactionService.getTransaction(missingId);
 
         //then
         Assertions.assertThrows(EntityNotFoundException.class, action);

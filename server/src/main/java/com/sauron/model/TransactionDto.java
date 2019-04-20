@@ -2,14 +2,14 @@ package com.sauron.model;
 
 import java.util.Objects;
 
-public class TestEntityPojo {
+public class TransactionDto {
 
     private String name;
 
-    public TestEntityPojo() {
+    public TransactionDto() {
     }
 
-    public TestEntityPojo(String name) {
+    public TransactionDto(String name) {
         this.name = name;
     }
 
@@ -25,7 +25,7 @@ public class TestEntityPojo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TestEntityPojo that = (TestEntityPojo) o;
+        TransactionDto that = (TransactionDto) o;
         return Objects.equals(name, that.name);
     }
 
@@ -36,7 +36,7 @@ public class TestEntityPojo {
 
     @Override
     public String toString() {
-        return "TestEntityPojo{" +
+        return "TransactionDto{" +
                 "name='" + name + '\'' +
                 '}';
     }
