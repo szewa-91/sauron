@@ -1,8 +1,47 @@
-/target/
-!.mvn/wrapper/maven-wrapper.jar
-
-### IntelliJ IDEA ###
-.idea
+# IDEs and editors
+/.idea
 *.iws
 *.iml
 *.ipr
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### BACKEND ###
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### FRONTEND ###
+# compiled output
+frontend/dist
+frontend/tmp
+frontend/out-tsc
+
+# dependencies
+frontend/node_modules
+
+# NativeScript
+frontend/hooks
+frontend/platforms
+
+# misc
+frontend/.sass-cache
+frontend/connect.lock
+frontend/coverage
+frontend/libpeerconnection.log
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/testem.log
+frontend/typings
+
+# System Files
+.DS_Store
+Thumbs.db
