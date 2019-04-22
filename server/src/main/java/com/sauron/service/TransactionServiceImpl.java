@@ -6,7 +6,9 @@ import com.sauron.model.entities.Transaction;
 import com.sauron.repo.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -23,7 +25,23 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionDto getTransaction(long id) {
         Optional<Transaction> transaction = transactionRepository.findTransactionById(id);
         return transaction
-                .map(n -> new TransactionDto(n.getName()))
+                .map(this::convertToDto)
                 .orElseThrow(() -> new EntityNotFoundException(INCORRECT_ID));
+    }
+
+    @Override
+    public Collection<TransactionDto> getAllTransactions() {
+        return transactionRepository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private TransactionDto convertToDto(Transaction transaction) {
+        return new TransactionDto(
+                transaction.getId(),
+                transaction.getAccountNumber(),
+                transaction.getDirection().name(),
+                transaction.getAmount()
+        );
     }
 }

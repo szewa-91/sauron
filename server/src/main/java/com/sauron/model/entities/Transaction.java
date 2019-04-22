@@ -2,9 +2,10 @@ package com.sauron.model.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "TESTENTITIES")
+@Table(name = "TRANSACTIONS")
 public class Transaction extends BaseEntity {
 
     @Id
@@ -13,15 +14,24 @@ public class Transaction extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "name", unique = true, nullable = false)
-    private String name;
+    @Column(name = "accountNumber", unique = true, nullable = false)
+    private String accountNumber;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TransactionDirection direction;
+
+    @NotNull
+    private BigDecimal amount;
 
     public Transaction() {
     }
 
-    public Transaction(Long id, @NotNull String name) {
+    public Transaction(Long id, @NotNull String accountNumber, @NotNull TransactionDirection direction, @NotNull BigDecimal amount) {
         this.id = id;
-        this.name = name;
+        this.accountNumber = accountNumber;
+        this.direction = direction;
+        this.amount = amount;
     }
 
     public Long getId() {
@@ -32,18 +42,27 @@ public class Transaction extends BaseEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                '}';
+    public TransactionDirection getDirection() {
+        return direction;
+    }
+
+    public void setDirection(TransactionDirection direction) {
+        this.direction = direction;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

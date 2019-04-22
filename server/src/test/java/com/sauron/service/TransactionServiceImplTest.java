@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.sauron.model.entities.TransactionDirection.PAY;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public class TransactionServiceTest {
+public class TransactionServiceImplTest {
 
     private TransactionService transactionService;
     private TransactionRepository transactionRepository;
@@ -31,16 +33,16 @@ public class TransactionServiceTest {
         //given
         long existingId = 1L;
 
-        Optional<Transaction> entity = Optional.of(new Transaction(1L, "First"));
-        Mockito.when(transactionRepository.findTransactionById(1L))
+        Optional<Transaction> entity = Optional.of(new Transaction(existingId, "123", PAY, BigDecimal.TEN));
+        Mockito.when(transactionRepository.findTransactionById(existingId))
                 .thenReturn(entity);
-        TransactionDto expeted = new TransactionDto("First");
+        TransactionDto expected = new TransactionDto(existingId, "123", "PAY", BigDecimal.TEN);
 
         //when
         TransactionDto actual = transactionService.getTransaction(existingId);
 
         //then
-        assertEquals(expeted, actual);
+        assertEquals(expected, actual);
     }
 
     @Test

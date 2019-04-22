@@ -1,43 +1,56 @@
 package com.sauron.model;
 
-import java.util.Objects;
+import java.math.BigDecimal;
 
 public class TransactionDto {
 
-    private String name;
+    private Long id;
+
+    private String accountNumber;
+
+    private String direction;
+
+    private BigDecimal amount;
 
     public TransactionDto() {
     }
 
-    public TransactionDto(String name) {
-        this.name = name;
+    public TransactionDto(Long id, String accountNumber, String direction, BigDecimal amount) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+        this.direction = direction;
+        this.amount = amount;
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TransactionDto that = (TransactionDto) o;
-        return Objects.equals(name, that.name);
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    @Override
-    public String toString() {
-        return "TransactionDto{" +
-                "name='" + name + '\'' +
-                '}';
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }
