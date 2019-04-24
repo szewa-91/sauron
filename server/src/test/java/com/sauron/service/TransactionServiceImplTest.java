@@ -6,18 +6,18 @@ import com.sauron.model.entities.Transaction;
 import com.sauron.repo.TransactionRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import static com.sauron.model.entities.TransactionDirection.PAY;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 
 public class TransactionServiceImplTest {
+    private static final long EXISTING_ID = 1L;
 
     private TransactionService transactionService;
     private TransactionRepository transactionRepository;
@@ -29,20 +29,19 @@ public class TransactionServiceImplTest {
     }
 
     @Test
-    public void validIdShouldReturnPojo() {
+    public void validIdShouldReturnDto() {
         //given
-        long existingId = 1L;
-
-        Optional<Transaction> entity = Optional.of(new Transaction(existingId, "123", PAY, BigDecimal.TEN));
-        Mockito.when(transactionRepository.findTransactionById(existingId))
+        Optional<Transaction> entity = Optional.of(new Transaction(EXISTING_ID, "123", PAY, BigDecimal.TEN));
+        Mockito.when(transactionRepository.findTransactionById(EXISTING_ID))
                 .thenReturn(entity);
-        TransactionDto expected = new TransactionDto(existingId, "123", "PAY", BigDecimal.TEN);
 
         //when
-        TransactionDto actual = transactionService.getTransaction(existingId);
+        TransactionDto actual = transactionService.getTransaction(EXISTING_ID);
 
         //then
-        assertEquals(expected, actual);
+        assertThat(actual).extracting(
+                TransactionDto::getAccountNumber, TransactionDto::getDirection, TransactionDto::getAmount
+        ).contains("123", "PAY", BigDecimal.TEN);
     }
 
     @Test
@@ -53,9 +52,9 @@ public class TransactionServiceImplTest {
         //when
         Mockito.when(transactionRepository.findTransactionById(999L))
                 .thenReturn(Optional.empty());
-        Executable action = () -> transactionService.getTransaction(missingId);
 
         //then
-        Assertions.assertThrows(EntityNotFoundException.class, action);
+        assertThatThrownBy(() -> transactionService.getTransaction(missingId))
+                .isInstanceOf(EntityNotFoundException.class);
     }
 }

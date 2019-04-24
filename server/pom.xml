@@ -18,6 +18,7 @@
         <swagger.version>2.9.2</swagger.version>
         <junit-jupiter.version>5.5.0-M1</junit-jupiter.version>
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
+        <assertj-plugin.version>3.11.1</assertj-plugin.version>
     </properties>
 
     <dependencies>
@@ -61,6 +62,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-plugin.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

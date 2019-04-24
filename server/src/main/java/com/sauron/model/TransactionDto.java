@@ -1,6 +1,7 @@
 package com.sauron.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class TransactionDto {
 
@@ -52,5 +53,31 @@ public class TransactionDto {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TransactionDto that = (TransactionDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(accountNumber, that.accountNumber) &&
+                Objects.equals(direction, that.direction) &&
+                Objects.equals(amount, that.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, accountNumber, direction, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionDto{" +
+                "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", direction='" + direction + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }
