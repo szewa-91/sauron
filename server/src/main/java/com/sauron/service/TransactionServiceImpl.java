@@ -38,9 +38,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private TransactionDto convertToDto(Transaction transaction) {
         return new TransactionDto(
-                transaction.getId(),
                 transaction.getAccountNumber(),
-                transaction.getDirection().name(),
+                transaction.getDirection(),
                 transaction.getAmount()
         );
     }

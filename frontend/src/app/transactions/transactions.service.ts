@@ -12,7 +12,6 @@ export class TransactionsService {
   constructor(private httpClient: HttpClient) { }
 
   public fetchTransactions(): Observable<Array<Transaction>> {
-    return this.httpClient.get('http://localhost:8080/transactions')
-        .pipe(map(response => response as Array<Transaction>));
+    return this.httpClient.get<Array<Transaction>>('http://localhost:8080/transactions');
   }
 }

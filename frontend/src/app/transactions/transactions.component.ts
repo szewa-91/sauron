@@ -9,6 +9,7 @@ import Transaction from '~/app/model/Transaction';
 })
 export class TransactionsComponent implements OnInit {
 
+  private error: string;
   private transactions: Array<Transaction>;
 
   constructor(private transactionsService: TransactionsService) {
@@ -16,7 +17,10 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit() {
     this.transactionsService.fetchTransactions()
-        .subscribe(transactions => this.transactions = transactions);
+        .subscribe(
+            transactions => this.transactions = transactions,
+            error => this.error = error)
+        ;
   }
 
 }

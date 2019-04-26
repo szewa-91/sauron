@@ -18,6 +18,7 @@ import static org.mockito.Mockito.mock;
 
 public class TransactionServiceImplTest {
     private static final long EXISTING_ID = 1L;
+    private static final String ACCOUNT_NUMBER = "123";
 
     private TransactionService transactionService;
     private TransactionRepository transactionRepository;
@@ -31,7 +32,7 @@ public class TransactionServiceImplTest {
     @Test
     public void validIdShouldReturnDto() {
         //given
-        Optional<Transaction> entity = Optional.of(new Transaction(EXISTING_ID, "123", PAY, BigDecimal.TEN));
+        Optional<Transaction> entity = Optional.of(new Transaction(EXISTING_ID, ACCOUNT_NUMBER, PAY, BigDecimal.TEN));
         Mockito.when(transactionRepository.findTransactionById(EXISTING_ID))
                 .thenReturn(entity);
 
@@ -41,7 +42,7 @@ public class TransactionServiceImplTest {
         //then
         assertThat(actual).extracting(
                 TransactionDto::getAccountNumber, TransactionDto::getDirection, TransactionDto::getAmount
-        ).contains("123", "PAY", BigDecimal.TEN);
+        ).contains(ACCOUNT_NUMBER, PAY, BigDecimal.TEN);
     }
 
     @Test

@@ -2,7 +2,10 @@ package com.sauron.controller;
 
 import com.sauron.model.TransactionDto;
 import com.sauron.service.TransactionService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
@@ -17,12 +20,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/{id}")
-    public TransactionDto getTransaction(@PathVariable(name = "id") long id) {
-        return transactionService.getTransaction(id);
-    }
-
-    @GetMapping("")
+    @GetMapping
     public Collection<TransactionDto> getAllTransactions() {
         return transactionService.getAllTransactions();
     }

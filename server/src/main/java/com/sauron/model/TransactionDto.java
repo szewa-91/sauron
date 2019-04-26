@@ -1,34 +1,25 @@
 package com.sauron.model;
 
+import com.sauron.model.entities.TransactionDirection;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class TransactionDto {
 
-    private Long id;
-
     private String accountNumber;
 
-    private String direction;
+    private TransactionDirection direction;
 
     private BigDecimal amount;
 
     public TransactionDto() {
     }
 
-    public TransactionDto(Long id, String accountNumber, String direction, BigDecimal amount) {
-        this.id = id;
+    public TransactionDto(String accountNumber, TransactionDirection direction, BigDecimal amount) {
         this.accountNumber = accountNumber;
         this.direction = direction;
         this.amount = amount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getAccountNumber() {
@@ -39,11 +30,11 @@ public class TransactionDto {
         this.accountNumber = accountNumber;
     }
 
-    public String getDirection() {
+    public TransactionDirection getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(TransactionDirection direction) {
         this.direction = direction;
     }
 
@@ -60,22 +51,20 @@ public class TransactionDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransactionDto that = (TransactionDto) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(accountNumber, that.accountNumber) &&
+        return Objects.equals(accountNumber, that.accountNumber) &&
                 Objects.equals(direction, that.direction) &&
                 Objects.equals(amount, that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountNumber, direction, amount);
+        return Objects.hash(accountNumber, direction, amount);
     }
 
     @Override
     public String toString() {
         return "TransactionDto{" +
-                "id=" + id +
-                ", accountNumber='" + accountNumber + '\'' +
+                "accountNumber='" + accountNumber + '\'' +
                 ", direction='" + direction + '\'' +
                 ", amount=" + amount +
                 '}';

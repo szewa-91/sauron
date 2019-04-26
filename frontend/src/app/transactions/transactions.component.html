@@ -1,4 +1,4 @@
-<table>
+<table *ngIf="transactions != undefined">
   <tr *ngFor="let transaction of transactions">
     <td>{{transaction.id}}</td>
     <td>{{transaction.accountNumber}}</td>
@@ -6,3 +6,5 @@
     <td>{{transaction.amount}}</td>
   </tr>
 </table>
+
+<p *ngIf="error">Some error while fetching transactions</p>
