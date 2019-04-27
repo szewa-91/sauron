@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { TransactionsComponent } from '~/app/transactions/transactions.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +14,6 @@ export const routes: Routes = [
   },
   {
       path: 'transactions',
-      component: TransactionsComponent,
+      loadChildren: './transactions/transactions.module#TransactionsModule',
   },
 ];

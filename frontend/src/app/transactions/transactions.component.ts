@@ -19,8 +19,8 @@ export class TransactionsComponent implements OnInit {
     this.transactionsService.fetchTransactions()
         .subscribe(
             transactions => this.transactions = transactions,
-            error => this.error = error)
-        ;
+            error => this.error = error
+        );
   }
 
 }
