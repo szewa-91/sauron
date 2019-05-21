@@ -23,7 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDto getTransaction(long id) {
-        Optional<Transaction> transaction = transactionRepository.findTransactionById(id);
+        Optional<Transaction> transaction = transactionRepository.findById(id);
         return transaction
                 .map(this::convertToDto)
                 .orElseThrow(() -> new EntityNotFoundException(INCORRECT_ID));
