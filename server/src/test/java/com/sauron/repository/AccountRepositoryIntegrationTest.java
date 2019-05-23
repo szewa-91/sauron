@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -20,14 +20,22 @@ import static org.assertj.core.api.BDDAssertions.then;
 @DataJpaTest
 @Sql(value = "classpath:sql/accounts.sql")
 @Transactional
-public class AccountRepositoryIT {
+public class AccountRepositoryIntegrationTest {
 
     @Autowired
     private AccountRepository accountRepository;
 
     @Test
     public void shouldFindAll() {
-        List<Account> accounts = accountRepository.findAll();
+        Collection<Account> accounts = accountRepository.findAll();
+
+        then(accounts).extracting(Account::getAccountNumber)
+                .containsExactlyInAnyOrder("1234", "5678", "9876");
+    }
+
+    @Test
+    public void shouldFindAllByUserId() {
+        Collection<Account> accounts = accountRepository.findByUserId(1L);
 
         then(accounts).extracting(
                 Account::getAccountNumber,
@@ -35,6 +43,8 @@ public class AccountRepositoryIT {
                 account -> account.getBank().getName(),
                 account -> account.getUser().getUsername()
         ).containsExactly(
-                tuple("1234", new BigDecimal("12.23"), "Iron Bank", "John Snow"));
+                tuple("1234", new BigDecimal("12.23"), "Iron Bank", "John Snow"),
+                tuple("5678", new BigDecimal("0.00"), "Northern Bank Of Winterfell", "John Snow")
+        );
     }
 }
