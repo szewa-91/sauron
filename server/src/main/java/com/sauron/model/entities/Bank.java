@@ -7,10 +7,14 @@ import javax.persistence.*;
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, updatable = false, nullable = false)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String name;
-    private String apiUrl;
+
+    @Column(unique = true, nullable = false)
+    private String loginUrl;
 
     public Long getId() {
         return id;
@@ -28,11 +32,11 @@ public class Bank {
         this.name = name;
     }
 
-    public String getApiUrl() {
-        return apiUrl;
+    public String getLoginUrl() {
+        return loginUrl;
     }
 
-    public void setApiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
+    public void setLoginUrl(String loginUrl) {
+        this.loginUrl = loginUrl;
     }
 }

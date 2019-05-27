@@ -6,22 +6,20 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TRANSACTIONS")
-public class Transaction extends BaseEntity {
-
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, updatable = false, nullable = false)
+    @Column(name = "ID", unique = true, updatable = false, nullable = false)
     private Long id;
 
-    @NotNull
-    @Column(name = "accountNumber", unique = true, nullable = false)
+    @Column(nullable = false)
     private String accountNumber;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionDirection direction;
 
-    @NotNull
+    @Column(nullable = false)
     private BigDecimal amount;
 
     public Transaction() {

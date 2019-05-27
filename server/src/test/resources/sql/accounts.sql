@@ -3,22 +3,22 @@ DELETE FROM USERS;
 DELETE FROM BANKS;
 
 INSERT INTO USERS (ID, USERNAME, EMAIL)
-VALUES(1, 'John Snow', 'iknownothing@nightwatch.com');
+VALUES(1, 'Jon Snow', 'iknownothing@nightwatch.com');
 
 INSERT INTO USERS (ID, USERNAME, EMAIL)
 VALUES(2, 'Daenerys Targaryen', 'khaleesi_542@gmail.com');
 
-INSERT INTO BANKS (ID, NAME, API_URL)
-VALUES(1, 'Iron Bank', 'http://iron-bank.bv/api');
+INSERT INTO BANKS (ID, NAME, LOGIN_URL)
+VALUES(1, 'Iron Bank', 'http://login.iron-bank.bv/');
 
-INSERT INTO BANKS (ID, NAME, API_URL)
-VALUES(2, 'Northern Bank Of Winterfell', 'http://api.northernbank.nr');
+INSERT INTO BANKS (ID, NAME, LOGIN_URL)
+VALUES(2, 'Northern Bank Of Winterfell', 'http://api.northernbank.nr/login');
 
-INSERT INTO ACCOUNTS (ACCOUNT_NUMBER, BANK_ID, USER_ID, BALANCE)
-VALUES('1234', 1, 1, 12.23);
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID)
+VALUES(1, 1);
 
-INSERT INTO ACCOUNTS (ACCOUNT_NUMBER, BANK_ID, USER_ID, BALANCE)
-VALUES('9876', 1, 2, 12653434.12);
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID)
+VALUES(1, 2);
 
-INSERT INTO ACCOUNTS (ACCOUNT_NUMBER, BANK_ID, USER_ID, BALANCE)
-VALUES('5678', 2, 1, 0);
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID)
+VALUES(2, 1);

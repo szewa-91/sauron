@@ -10,7 +10,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.tuple;
@@ -29,8 +28,7 @@ public class AccountRepositoryIntegrationTest {
     public void shouldFindAll() {
         Collection<Account> accounts = accountRepository.findAll();
 
-        then(accounts).extracting(Account::getAccountNumber)
-                .containsExactlyInAnyOrder("1234", "5678", "9876");
+        then(accounts).hasSize(3);
     }
 
     @Test
@@ -38,13 +36,11 @@ public class AccountRepositoryIntegrationTest {
         Collection<Account> accounts = accountRepository.findByUserId(1L);
 
         then(accounts).extracting(
-                Account::getAccountNumber,
-                Account::getBalance,
                 account -> account.getBank().getName(),
                 account -> account.getUser().getUsername()
         ).containsExactly(
-                tuple("1234", new BigDecimal("12.23"), "Iron Bank", "John Snow"),
-                tuple("5678", new BigDecimal("0.00"), "Northern Bank Of Winterfell", "John Snow")
+                tuple("Iron Bank", "John Snow"),
+                tuple("Northern Bank Of Winterfell", "John Snow")
         );
     }
 }

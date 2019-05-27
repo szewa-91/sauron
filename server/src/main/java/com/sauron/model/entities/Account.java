@@ -1,26 +1,26 @@
 package com.sauron.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "ACCOUNTS")
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, updatable = false, nullable = false)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
     @OneToOne
+    @NotNull
     private User user;
 
     @OneToOne
+    @NotNull
     private Bank bank;
 
-    private String accountNumber;
-
-    private BigDecimal balance;
+    @Column(updatable = false, nullable = false)
+    private String login;
 
     public Long getId() {
         return id;
@@ -46,19 +46,11 @@ public class Account {
         this.bank = bank;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getLogin() {
+        return login;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
