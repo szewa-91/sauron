@@ -1,6 +1,7 @@
 package com.sauron.service;
 
 import com.sauron.exception.EntityNotFoundException;
+import com.sauron.model.BankRequest;
 import com.sauron.model.TransactionDto;
 import com.sauron.model.entities.Transaction;
 import com.sauron.repo.TransactionRepository;
@@ -8,22 +9,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
     private static final String INCORRECT_ID = "Incorrect ID";
 
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+    private final BankServiceExecutor bankServiceExecutor;
+    private final BankRequestService bankRequestService;
 
-    TransactionServiceImpl(TransactionRepository transactionRepository) {
+    TransactionServiceImpl(TransactionRepository transactionRepository, BankServiceExecutor bankServiceExecutor,
+                           BankRequestService bankRequestService) {
         this.transactionRepository = transactionRepository;
+        this.bankServiceExecutor = bankServiceExecutor;
+        this.bankRequestService = bankRequestService;
     }
 
     @Override
     public TransactionDto getTransaction(long id) {
-        Optional<Transaction> transaction = transactionRepository.findTransactionById(id);
+        Optional<Transaction> transaction = transactionRepository.findById(id);
         return transaction
                 .map(this::convertToDto)
                 .orElseThrow(() -> new EntityNotFoundException(INCORRECT_ID));
@@ -31,9 +38,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Collection<TransactionDto> getAllTransactions() {
-        return transactionRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+        Collection<BankRequest<Collection<TransactionDto>>> getAllTransactions = bankRequestService.getAllRequests();
+        Collection<Collection<TransactionDto>> dummyBankTransactionsResponse = bankServiceExecutor.execMethod(getAllTransactions);
+        return dummyBankTransactionsResponse.stream().flatMap(Collection::stream).collect(toList());
     }
 
     private TransactionDto convertToDto(Transaction transaction) {

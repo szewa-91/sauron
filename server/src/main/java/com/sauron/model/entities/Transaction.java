@@ -1,27 +1,32 @@
 package com.sauron.model.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TRANSACTIONS")
-public class Transaction extends BaseEntity {
-
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, updatable = false, nullable = false)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
-    @NotNull
-    @Column(name = "accountNumber", unique = true, nullable = false)
+    @Column(nullable = false)
     private String accountNumber;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionDirection direction;
 
-    @NotNull
+    @Column(nullable = false)
     private BigDecimal amount;
 
     public Transaction() {

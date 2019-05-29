@@ -1,0 +1,24 @@
+DELETE FROM ACCOUNTS;
+DELETE FROM USERS;
+DELETE FROM BANKS;
+
+INSERT INTO USERS (ID, USERNAME, EMAIL)
+VALUES(1, 'Jon Snow', 'iknownothing@nightwatch.com');
+
+INSERT INTO USERS (ID, USERNAME, EMAIL)
+VALUES(2, 'Daenerys Targaryen', 'khaleesi_542@gmail.com');
+
+INSERT INTO BANKS (ID, NAME, LOGIN_URL)
+VALUES(1, 'Iron Bank', 'http://login.iron-bank.bv/');
+
+INSERT INTO BANKS (ID, NAME, LOGIN_URL)
+VALUES(2, 'Northern Bank Of Winterfell', 'http://api.northernbank.nr/login');
+
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
+VALUES(1, 1, '');
+
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
+VALUES(1, 2, '');
+
+INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
+VALUES(2, 1, '');
