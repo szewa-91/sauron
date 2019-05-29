@@ -1,6 +1,12 @@
 package com.sauron.model.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -11,11 +17,11 @@ public class Account {
     @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private Bank bank;
 
