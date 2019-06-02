@@ -11,7 +11,9 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 public class BankRequestServiceTest {
 
-    private static final int FAKE_BANKS_ACCOUNTS_COUNT = 2;
+    private static final String RANDOM_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/random-bank";
+    private static final String WEST_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/west-bank";
+
     private BankRequestService bankRequestService;
 
     @Before
@@ -23,6 +25,11 @@ public class BankRequestServiceTest {
     public void shouldFindAllRequests() {
         Collection<BankRequest<Collection<TransactionDto>>> requests = bankRequestService.getAllRequests();
 
-        then(requests.size()).isEqualTo(FAKE_BANKS_ACCOUNTS_COUNT);
+        then(requests).extracting(
+                BankRequest::getPath
+        ).containsExactly(
+                RANDOM_BANK_TRANSACTIONS_URL,
+                WEST_BANK_TRANSACTIONS_URL
+        );
     }
 }
