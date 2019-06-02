@@ -14,7 +14,6 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <mockito.version>1.10.19</mockito.version>
         <swagger.version>2.9.2</swagger.version>
         <junit-jupiter.version>5.5.0-M1</junit-jupiter.version>
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
@@ -50,12 +49,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
