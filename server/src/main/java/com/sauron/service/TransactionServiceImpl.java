@@ -38,8 +38,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Collection<TransactionDto> getAllTransactions() {
-        Collection<BankRequest<Collection<TransactionDto>>> getAllTransactions = bankRequestService.getAllRequests();
-        Collection<Collection<TransactionDto>> dummyBankTransactionsResponse = bankServiceExecutor.execMethod(getAllTransactions);
+        Collection<Collection<TransactionDto>> dummyBankTransactionsResponse =
+                bankServiceExecutor.execMethod(bankRequestService.getAllRequests());
         return dummyBankTransactionsResponse.stream().flatMap(Collection::stream).collect(toList());
     }
 

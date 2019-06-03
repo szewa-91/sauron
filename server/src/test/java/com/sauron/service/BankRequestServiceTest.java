@@ -14,12 +14,7 @@ public class BankRequestServiceTest {
     private static final String RANDOM_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/random-bank";
     private static final String WEST_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/west-bank";
 
-    private BankRequestService bankRequestService;
-
-    @Before
-    public void setUp() {
-        bankRequestService = new InMemoryBankRequestService();
-    }
+    private BankRequestService bankRequestService = new InMemoryBankRequestService();
 
     @Test
     public void shouldFindAllRequests() {
