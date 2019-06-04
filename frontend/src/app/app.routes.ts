@@ -22,6 +22,5 @@ export const routes: Routes = [
     path: 'transactions',
     loadChildren: './transactions/transactions.module#TransactionsModule',
     canActivate: [AuthGuard],
-
   },
 ];
