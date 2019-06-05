@@ -1,6 +1,6 @@
 package com.sauron.controller;
 
-import com.sauron.model.TransactionDto;
+import com.sauron.model.Transaction;
 import com.sauron.service.TransactionService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public Collection<TransactionDto> getAllTransactions() {
+    public Collection<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
 }
