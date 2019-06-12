@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TransactionsComponent } from '~/app/transactions/transactions.component';
+import { TransactionsComponent } from '~/app/pages/transactions/transactions.component';
 
 const routes: Routes = [
   {
