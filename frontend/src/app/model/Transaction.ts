@@ -4,3 +4,7 @@ export default interface Transaction {
   direction: string;
   amount: number;
 }
+
+export function formatTransactionDirection(direction: string) {
+  return direction === 'PAY' ? 'Pay' : 'Receive';
+}
