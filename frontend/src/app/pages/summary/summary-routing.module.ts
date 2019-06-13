@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TransactionsComponent } from '~/app/pages/transactions/transactions.component';
+import { TransactionsComponent } from '~/app/pages/summary/transactions.component';
 
 const routes: Routes = [
   {
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TransactionsRoutingModule { }
+export class SummaryRoutingModule { }

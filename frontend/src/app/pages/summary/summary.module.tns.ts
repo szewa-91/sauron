@@ -1,14 +1,14 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { TransactionsRoutingModule } from './transactions-routing.module';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { SummaryRoutingModule } from 'src/app/pages/summary/summary-routing.module';
 
 @NgModule({
   declarations: [],
   imports: [
-    TransactionsRoutingModule,
+    SummaryRoutingModule,
     NativeScriptCommonModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class TransactionsModule { }
+export class SummaryModule { }

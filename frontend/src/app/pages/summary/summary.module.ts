@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TransactionsRoutingModule } from './transactions-routing.module';
-import { TransactionsComponent } from '~/app/pages/transactions/transactions.component';
+import { TransactionsComponent } from '~/app/pages/summary/transactions.component';
 import { HttpClientModule } from 'node_modules/@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
+import { SummaryRoutingModule } from '~/app/pages/summary/summary-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,10 +12,10 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   imports: [
     CommonModule,
-    TransactionsRoutingModule,
+    SummaryRoutingModule,
     HttpClientModule,
     AgGridModule.withComponents([])
   ]
 })
-export class TransactionsModule {
+export class SummaryModule {
 }
