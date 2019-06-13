@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { TransactionsComponent } from '~/app/pages/summary/transactions.component';
+import { RouterModule, Routes } from '@angular/router';
+import { SummaryComponent } from '~/app/pages/summary/summary.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TransactionsComponent,
+    component: SummaryComponent,
   },
 ];
 
