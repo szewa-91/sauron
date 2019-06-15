@@ -1,0 +1,29 @@
+.login-container{
+  width: 100vw;
+}
+.logo{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: -5vh;
+}
+
+.input-field-container {
+  margin-top: 40vh;
+  width: 100vw;
+
+  margin-left: 0;
+  margin-right: 0;
+}
+.input-field {
+  width: 90vw;
+  margin-left: 5vw;
+  border-radius: 50px;
+  background-color: #00000033;
+  border-width: 2px;
+  padding: 0;
+
+  &:focus {
+    border-color: coral;
+  }
+}
