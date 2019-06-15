@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '~/app/layout/layout.module';
 import { PagesModule } from '~/app/pages/pages.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PagesModule } from '~/app/pages/pages.module';
     HttpClientModule,
     LayoutModule,
     PagesModule,
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent]
 })

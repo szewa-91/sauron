@@ -2,14 +2,12 @@
   <div class="logo"><img src="assets/sauronlogo.svg"></div>
   <div class="input-field-container">
     <div>
-      <mat-form-field>
-        <span matPrefix>siema</span>
-        <input matInput class="input-field" [(ngModel)]="mail" type="email" title="Email"/>
-      </mat-form-field>
+      <input class="input-field" [(ngModel)]="mail" type="email" title="Email"/>
     </div>
     <div>
       <input matInput class="input-field" [(ngModel)]="password" type="password" title="Password"/>
     </div>
   </div>
   <button type="submit" (click)="login()">Log in!</button>
+  <div class="bglogo"><img src="assets/loginbg.svg"></div>
 </div>
