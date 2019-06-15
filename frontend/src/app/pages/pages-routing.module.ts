@@ -14,8 +14,8 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'transactions',
-    loadChildren: './transactions/transactions.module#TransactionsModule',
+    path: 'summary',
+    loadChildren: './summary/summary.module#SummaryModule',
     canActivate: [AuthGuard],
   },
 ];
