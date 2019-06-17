@@ -8,16 +8,19 @@ import java.util.Objects;
 
 public class Transaction {
 
-    private final Long id;
-    private final Long bankId;
-    private final String transactionTitle;
-    private final String accountNumber;
-    private final TransactionDirection direction;
-    private final BigDecimal amount;
-    private final LocalDateTime transactionDate;
+    private Long id;
+    private Long bankId;
+    private String transactionTitle;
+    private String accountNumber;
+    private TransactionDirection direction;
+    private BigDecimal amount;
+    private LocalDateTime transactionDate;
 
-    public Transaction(Long id, Long bankId, String transactionTitle, String accountNumber, TransactionDirection direction, BigDecimal amount,
-                       LocalDateTime transactionDate) {
+    public Transaction() {
+    }
+
+    public Transaction(Long id, Long bankId, String transactionTitle, String accountNumber, TransactionDirection direction,
+                       BigDecimal amount, LocalDateTime transactionDate) {
         this.id = id;
         this.bankId = bankId;
         this.transactionTitle = transactionTitle;
@@ -31,28 +34,56 @@ public class Transaction {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getBankId() {
         return bankId;
+    }
+
+    public void setBankId(Long bankId) {
+        this.bankId = bankId;
     }
 
     public String getTransactionTitle() {
         return transactionTitle;
     }
 
+    public void setTransactionTitle(String transactionTitle) {
+        this.transactionTitle = transactionTitle;
+    }
+
     public String getAccountNumber() {
         return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public TransactionDirection getDirection() {
         return direction;
     }
 
+    public void setDirection(TransactionDirection direction) {
+        this.direction = direction;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
 
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     public LocalDateTime getTransactionDate() {
         return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     @Override
@@ -78,8 +109,9 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", bankId='" + bankId + '\'' +
+                ", bankId=" + bankId +
                 ", transactionTitle='" + transactionTitle + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", direction=" + direction +
                 ", amount=" + amount +
                 ", transactionDate=" + transactionDate +
