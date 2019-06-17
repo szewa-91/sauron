@@ -3,8 +3,16 @@ package com.sauron.service;
 import com.sauron.model.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,26 +23,32 @@ import static com.sauron.constants.TransactionConstants.PAYMENT;
 import static com.sauron.model.entities.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class TransactionServiceImplTest {
 
+    private static final String SHIRE_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/shire-bank";
+    private static final String MORDOR_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/mordor-bank";
+
     private TransactionService transactionService;
-    private BankServiceExecutor bankServiceExecutor;
-    private BankRequestService bankRequestService;
+    private RestTemplate restTemplate;
 
     @Before
     public void setup() {
-        bankServiceExecutor = mock(BankServiceExecutor.class);
-        bankRequestService = mock(BankRequestService.class);
-        transactionService = new TransactionServiceImpl(bankServiceExecutor, bankRequestService);
+        restTemplate = mock(RestTemplate.class);
+        RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
+        given(builder.build()).willReturn(restTemplate);
+        transactionService = new TransactionServiceImpl(builder);
     }
 
     @Test
     public void allTransactionsShouldReturnValidTransaction() {
-        given(bankServiceExecutor.execMethod(any())).willReturn(Collections.singletonList(List.of(PAYMENT)));
+        given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET, URI.create(SHIRE_BANK_TRANSACTIONS_URL)),
+                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
+        given(restTemplate.exchange(new RequestEntity<Collection<Transaction>>(HttpMethod.GET, URI.create(MORDOR_BANK_TRANSACTIONS_URL)),
+                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(Collections.emptyList(),
+                HttpStatus.OK));
 
         Collection<Transaction> actual = transactionService.getAllTransactions();
 
