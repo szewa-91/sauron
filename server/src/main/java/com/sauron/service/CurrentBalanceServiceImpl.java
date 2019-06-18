@@ -16,6 +16,7 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
         this.transactionService = transactionService;
     }
 
+    //TODO to reconsider after adding some persistence (?) mechanisms to transactions
     @Override
     public BigDecimal getCurrentBalance() {
         Collection<Transaction> transactions = transactionService.getAllTransactions();
@@ -24,10 +25,7 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
     }
 
     private BigDecimal convertToAmount(Transaction transaction) {
-        if(TransactionDirection.PAY.equals(transaction.getDirection())) {
-            return transaction.getAmount().negate();
-        }
 
-        return transaction.getAmount();
+        return TransactionDirection.PAY == transaction.getDirection() ? transaction.getAmount().negate() : transaction.getAmount();
     }
 }

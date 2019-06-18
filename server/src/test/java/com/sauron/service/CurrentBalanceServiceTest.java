@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.sauron.constants.TransactionConstants.COMPENSATION;
 import static com.sauron.constants.TransactionConstants.PAYMENT;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -29,6 +29,6 @@ public class CurrentBalanceServiceTest {
 
         BigDecimal result = currentBalanceService.getCurrentBalance();
 
-        assertThat(result).isEqualTo(BigDecimal.valueOf(250.50));
+        then(result).isEqualTo(BigDecimal.valueOf(250.50));
     }
 }

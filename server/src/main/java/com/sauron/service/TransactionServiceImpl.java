@@ -9,12 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -31,12 +28,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Collection<Transaction> getAllTransactions() {
-        Collection<Transaction> transactions = new ArrayList<>();
-        for(String bankUrl: BANK_URLS){
-            transactions.addAll(getBankTransactions(bankUrl));
-        }
 
-        return transactions;
+        return BANK_URLS.stream().flatMap(url -> getBankTransactions(url).stream()).collect(Collectors.toList());
     }
 
     private Collection<Transaction> getBankTransactions(String url) {
