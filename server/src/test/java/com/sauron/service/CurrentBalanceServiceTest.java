@@ -1,21 +1,34 @@
 package com.sauron.service;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.sauron.constants.TransactionConstants.COMPENSATION;
+import static com.sauron.constants.TransactionConstants.PAYMENT;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 public class CurrentBalanceServiceTest {
-    private CurrentBalanceService currentBalanceService = new CurrentBalanceServiceImpl();
-    private static final BigDecimal HARDCODED_RETURN_VALUE = new BigDecimal("123.45");
+
+    private TransactionService transactionService;
+    private CurrentBalanceService currentBalanceService;
+
+    @Before
+    public void setup() {
+        transactionService = mock(TransactionService.class);
+        currentBalanceService = new CurrentBalanceServiceImpl(transactionService);
+    }
 
     @Test
     public void mockedReturnValueShouldBeAsHardcoded() {
-        //given
-        //when
+        given(transactionService.getAllTransactions()).willReturn(List.of(PAYMENT, COMPENSATION));
+
         BigDecimal result = currentBalanceService.getCurrentBalance();
-        //then
-        assertThat(result).isEqualTo(HARDCODED_RETURN_VALUE);
+
+        then(result).isEqualTo(BigDecimal.valueOf(250.50));
     }
 }

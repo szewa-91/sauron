@@ -1,77 +1,62 @@
 package com.sauron.service;
 
-import com.sauron.exception.EntityNotFoundException;
-import com.sauron.model.TransactionDto;
-import com.sauron.model.entities.Transaction;
-import com.sauron.repo.TransactionRepository;
+import com.sauron.model.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+import static com.sauron.constants.TransactionConstants.FIXED_DATE;
+import static com.sauron.constants.TransactionConstants.PAYMENT;
 import static com.sauron.model.entities.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class TransactionServiceImplTest {
-    private static final long EXISTING_ID = 1L;
-    private static final String ACCOUNT_NUMBER = "123";
-    private static final Transaction TRANSACTION = new Transaction(EXISTING_ID, ACCOUNT_NUMBER, PAY, BigDecimal.TEN);
-    private static final TransactionDto TRANSACTION_DTO = new TransactionDto(ACCOUNT_NUMBER, PAY, BigDecimal.TEN);
+
+    private static final String SHIRE_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/shire-bank";
+    private static final String MORDOR_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/mordor-bank";
 
     private TransactionService transactionService;
-    private TransactionRepository transactionRepository;
-    private BankServiceExecutor bankServiceExecutor;
-    private BankRequestService bankRequestService;
+    private RestTemplate restTemplate;
 
     @Before
-    public void setOff() {
-        transactionRepository = mock(TransactionRepository.class);
-        bankServiceExecutor = mock(BankServiceExecutor.class);
-        bankRequestService = mock(BankRequestService.class);
-        transactionService = new TransactionServiceImpl(transactionRepository, bankServiceExecutor, bankRequestService);
+    public void setup() {
+        restTemplate = mock(RestTemplate.class);
+        RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
+        given(builder.build()).willReturn(restTemplate);
+        transactionService = new TransactionServiceImpl(builder);
     }
 
     @Test
-    public void validIdShouldReturnDto() {
-        given(transactionRepository.findById(EXISTING_ID))
-                .willReturn(Optional.of(TRANSACTION));
+    public void allTransactionsShouldReturnValidTransaction() {
+        given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET, URI.create(SHIRE_BANK_TRANSACTIONS_URL)),
+                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
+        given(restTemplate.exchange(new RequestEntity<Collection<Transaction>>(HttpMethod.GET, URI.create(MORDOR_BANK_TRANSACTIONS_URL)),
+                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(Collections.emptyList(),
+                HttpStatus.OK));
 
-        TransactionDto actual = transactionService.getTransaction(EXISTING_ID);
-
-        then(actual).extracting(
-                TransactionDto::getAccountNumber, TransactionDto::getDirection, TransactionDto::getAmount
-        ).contains(ACCOUNT_NUMBER, PAY, BigDecimal.TEN);
-    }
-
-    @Test
-    public void shouldReturnCorrectDto() {
-        given(bankServiceExecutor.execMethod(any())).willReturn(Collections.singletonList(List.of(TRANSACTION_DTO)));
-
-        Collection<TransactionDto> actual = transactionService.getAllTransactions();
-
+        Collection<Transaction> actual = transactionService.getAllTransactions();
 
         then(actual).extracting(
-                TransactionDto::getAccountNumber, TransactionDto::getDirection, TransactionDto::getAmount
+                Transaction::getId, Transaction::getBankId, Transaction::getTransactionTitle, Transaction::getAccountNumber,
+                Transaction::getDirection, Transaction::getAmount, Transaction::getTransactionDate
         ).containsExactly(
-                tuple(ACCOUNT_NUMBER, PAY, BigDecimal.TEN));
+                tuple(1L, 1L, "Money transfer", "123456789", PAY, BigDecimal.valueOf(100), LocalDateTime.now(FIXED_DATE)));
     }
 
-    @Test
-    public void invalidIdShouldThrowException() {
-        long missingId = 999L;
-        given(transactionRepository.findById(999L))
-                .willReturn(Optional.empty());
-
-        thenThrownBy(() -> transactionService.getTransaction(missingId))
-                .isInstanceOf(EntityNotFoundException.class);
-    }
 }

@@ -1,53 +1,40 @@
 package com.sauron.service;
 
-import com.sauron.exception.EntityNotFoundException;
-import com.sauron.model.BankRequest;
-import com.sauron.model.TransactionDto;
-import com.sauron.model.entities.Transaction;
-import com.sauron.repo.TransactionRepository;
+import com.sauron.model.Transaction;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.Collection;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private static final String INCORRECT_ID = "Incorrect ID";
+    private static final String SHIRE_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/shire-bank";
+    private static final String MORDOR_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/mordor-bank";
+    private static final List<String> BANK_URLS = List.of(SHIRE_BANK_TRANSACTIONS_URL, MORDOR_BANK_TRANSACTIONS_URL);
 
-    private final TransactionRepository transactionRepository;
-    private final BankServiceExecutor bankServiceExecutor;
-    private final BankRequestService bankRequestService;
+    private final RestTemplate restTemplate;
 
-    TransactionServiceImpl(TransactionRepository transactionRepository, BankServiceExecutor bankServiceExecutor,
-                           BankRequestService bankRequestService) {
-        this.transactionRepository = transactionRepository;
-        this.bankServiceExecutor = bankServiceExecutor;
-        this.bankRequestService = bankRequestService;
+    public TransactionServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     @Override
-    public TransactionDto getTransaction(long id) {
-        Optional<Transaction> transaction = transactionRepository.findById(id);
-        return transaction
-                .map(this::convertToDto)
-                .orElseThrow(() -> new EntityNotFoundException(INCORRECT_ID));
+    public Collection<Transaction> getAllTransactions() {
+
+        return BANK_URLS.stream().flatMap(url -> getBankTransactions(url).stream()).collect(Collectors.toList());
     }
 
-    @Override
-    public Collection<TransactionDto> getAllTransactions() {
-        Collection<Collection<TransactionDto>> dummyBankTransactionsResponse =
-                bankServiceExecutor.execMethod(bankRequestService.getAllRequests());
-        return dummyBankTransactionsResponse.stream().flatMap(Collection::stream).collect(toList());
+    private Collection<Transaction> getBankTransactions(String url) {
+        return restTemplate.exchange(new RequestEntity<>(HttpMethod.GET, URI.create(url)),
+                new ParameterizedTypeReference<Collection<Transaction>>(){}).getBody();
     }
 
-    private TransactionDto convertToDto(Transaction transaction) {
-        return new TransactionDto(
-                transaction.getAccountNumber(),
-                transaction.getDirection(),
-                transaction.getAmount()
-        );
-    }
 }

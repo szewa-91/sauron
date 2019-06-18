@@ -1,12 +1,9 @@
 package com.sauron.service;
 
-import com.sauron.model.TransactionDto;
+import com.sauron.model.Transaction;
 
 import java.util.Collection;
 
 public interface TransactionService {
-
-    TransactionDto getTransaction(long id);
-
-    Collection<TransactionDto> getAllTransactions();
+    Collection<Transaction> getAllTransactions();
 }
