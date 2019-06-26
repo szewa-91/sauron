@@ -12,6 +12,9 @@ import com.sauron.model.entities.TransactionDirection;
 public class ExternalTransaction {
 	
 	private Long id;
+	//TODO 1. pair user-bank should have some mapping for user(userId) - bank(userId)
+	//TODO 2. bank(userId) should be retrieved from JWT
+	private Long userId;
 	private String transactionTitle;
 	private String accountNumber;
 	private TransactionDirection direction;
@@ -21,9 +24,10 @@ public class ExternalTransaction {
 	public ExternalTransaction() {
 	}
 	
-	public ExternalTransaction(final Long id, final String transactionTitle, final String accountNumber, final TransactionDirection direction,
+	public ExternalTransaction(final Long id, Long userId, final String transactionTitle, final String accountNumber, final TransactionDirection direction,
 							   final BigDecimal amount, final LocalDateTime transactionDate) {
 		this.id = id;
+		this.userId = userId;
 		this.transactionTitle = transactionTitle;
 		this.accountNumber = accountNumber;
 		this.direction = direction;
@@ -37,6 +41,14 @@ public class ExternalTransaction {
 	
 	public void setId(final Long id) {
 		this.id = id;
+	}
+	
+	public Long getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(final Long userId) {
+		this.userId = userId;
 	}
 	
 	public String getTransactionTitle() {
@@ -87,6 +99,7 @@ public class ExternalTransaction {
 			return false;
 		final ExternalTransaction that = (ExternalTransaction) o;
 		return Objects.equals(id, that.id) &&
+				Objects.equals(userId, that.userId) &&
 				Objects.equals(transactionTitle, that.transactionTitle) &&
 				Objects.equals(accountNumber, that.accountNumber) &&
 				direction == that.direction &&
@@ -96,13 +109,14 @@ public class ExternalTransaction {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, transactionTitle, accountNumber, direction, amount, transactionDate);
+		return Objects.hash(id, userId, transactionTitle, accountNumber, direction, amount, transactionDate);
 	}
 	
 	@Override
 	public String toString() {
 		return "ExternalTransaction{" +
 				"id=" + id +
+				", userId=" + userId +
 				", transactionTitle='" + transactionTitle + '\'' +
 				", accountNumber='" + accountNumber + '\'' +
 				", direction=" + direction +

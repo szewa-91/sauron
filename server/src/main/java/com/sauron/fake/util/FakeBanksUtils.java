@@ -2,6 +2,7 @@ package com.sauron.fake.util;
 
 import static com.sauron.fake.util.FakeBanksConstants.ACCOUNT_NUMBERS;
 import static com.sauron.fake.util.FakeBanksConstants.ALLOWED_DIRECTIONS;
+import static com.sauron.fake.util.FakeBanksConstants.CURRENT_USERS;
 import static com.sauron.fake.util.FakeBanksConstants.PAYMENT_TITLES;
 
 import java.math.BigDecimal;
@@ -20,14 +21,15 @@ public class FakeBanksUtils {
 	public static List<ExternalTransaction> generateTransactions(int transactionCount, int maxTransactionAmount) {
 		List<ExternalTransaction> transactions = new ArrayList<>();
 		for(long i = 0; i < transactionCount; i++ ) {
-			transactions.add(new ExternalTransaction(i, generateElement(PAYMENT_TITLES), generateElement(ACCOUNT_NUMBERS),
-					generateElement(ALLOWED_DIRECTIONS), generateAmount(maxTransactionAmount), getTransactionDate(i)));
+			transactions.add(new ExternalTransaction(i, generateElement(CURRENT_USERS), generateElement(PAYMENT_TITLES),
+					generateElement(ACCOUNT_NUMBERS), generateElement(ALLOWED_DIRECTIONS), generateAmount(maxTransactionAmount),
+					getTransactionDate(i)));
 		}
 		
 		return transactions;
 	}
 	
-	private static BigDecimal generateAmount(int maxTransactionAmount) {
+	public static BigDecimal generateAmount(int maxTransactionAmount) {
 		return new BigDecimal(ThreadLocalRandom.current().nextInt(maxTransactionAmount));
 	}
 	
