@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from 'src/app/data/transactions.service';
-import Transaction, { formatTransactionDirection } from 'src/app/model/Transaction';
+import Transaction from 'src/app/model/Transaction';
 
 @Component({
   selector: 'app-transactions',
@@ -8,16 +8,6 @@ import Transaction, { formatTransactionDirection } from 'src/app/model/Transacti
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-
-  private columnDefs = [
-    { headerName: 'Account number', field: 'accountNumber', width: 200, sortable: true, filter: 'agTextColumnFilter' },
-    {
-      headerName: 'Direction', field: 'direction', width: 80, sortable: true, filter: false,
-      valueFormatter: params => formatTransactionDirection(params.value)
-    },
-    { headerName: 'Amount', field: 'amount', width: 100, sortable: true, filter: 'agNumberColumnFilter' }
-  ];
-
   private error: string;
   private transactions: Array<Transaction>;
 

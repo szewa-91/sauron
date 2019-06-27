@@ -1,10 +1,7 @@
 export default interface Transaction {
   id: number;
   accountNumber: string;
-  direction: string;
+  direction: 'PAY' | 'RECEIVE';
   amount: number;
 }
 
-export function formatTransactionDirection(direction: string) {
-  return direction === 'PAY' ? 'Pay' : 'Receive';
-}
