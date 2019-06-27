@@ -1,3 +1,21 @@
 .transactions-container {
   padding: 16px;
+  width: 500px;
+}
+
+.transaction-view {
+  display: flex;
+  flex-direction: row;
+}
+
+.transaction-view__title {
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-view__amount {
+  width: 40%;
+
 }

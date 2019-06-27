@@ -1,12 +1,9 @@
 <div class="transactions-container">
-  <ag-grid-angular
-      *ngIf="transactions != undefined"
-      style="width: 390px;"
-      class="ag-theme-balham"
-      domLayout = "autoHeight"
-      [rowData]="transactions"
-      [columnDefs]="columnDefs"
-  >
-  </ag-grid-angular>
+  <ng-template [ngIf]="transactions != undefined">
+    <div *ngFor="let transaction of transactions" class="transaction-view">
+      <div class="transaction-view__title"><span class="trunkated">{{transaction.transactionTitle | uppercase}}</span></div>
+      <div class="transaction-view__amount">{{transaction | signedAmount}}</div>
+    </div>
+  </ng-template>
   <p *ngIf="error">Some error while fetching transactions</p>
 </div>

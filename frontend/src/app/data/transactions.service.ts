@@ -7,6 +7,9 @@ import Transaction from 'src/app/model/Transaction';
   providedIn: 'root'
 })
 export class TransactionsService {
+  public static getSignedAmount(transaction: Transaction): Number {
+    return transaction.direction === 'RECEIVE' ? transaction.amount : -transaction.amount;
+  };
 
   constructor(private httpClient: HttpClient) { }
 

@@ -7,6 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SummaryRoutingModule } from '~/app/pages/summary/summary-routing.module';
 import { SummaryComponent } from './summary.component';
 import { BalanceComponent } from './balance/balance.component';
+import { UtilModule } from '~/app/util/util.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { BalanceComponent } from './balance/balance.component';
     CommonModule,
     SummaryRoutingModule,
     HttpClientModule,
+    UtilModule,
     AgGridModule.withComponents([])
   ]
 })
