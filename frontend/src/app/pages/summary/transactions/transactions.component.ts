@@ -22,4 +22,17 @@ export class TransactionsComponent implements OnInit {
         );
   }
 
+  private getBankColor(transaction: Transaction): string {
+    switch (transaction.bankId) {
+      case 1:
+        return 'bank-indicator--bank1';
+      case 2:
+        return 'bank-indicator--bank2';
+      case 3:
+        return 'bank-indicator--bank3';
+      default:
+        return '';
+    }
+  }
+
 }

@@ -1,6 +1,6 @@
 .transactions-container {
   padding: 16px;
-  width: 500px;
+  width: 400px;
 }
 
 .transaction-view {
@@ -8,14 +8,45 @@
   flex-direction: row;
 }
 
-.transaction-view__title {
-  width: 60%;
+.transaction-title {
+  width: 70%;
+  font-size: 1.3em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.transaction-view__amount {
-  width: 40%;
+.transaction-amount {
+  width: 30%;
+  text-align: right;
+}
 
+.transaction-amount__number {
+  font-size: 1.3em;
+  margin-right: 0.2em;
+}
+
+.transaction-amount__currency {
+  font-size: 0.6em;
+  color: #333333;
+}
+
+.bank-indicator {
+  height: 5px;
+  width: 10px;
+  margin: 4px;
+  border-radius: 25%;
+  display: inline-block;
+}
+
+.bank-indicator--bank1 {
+  background-color: #ff7253;
+}
+
+.bank-indicator--bank2 {
+  background-color: #57c3ff;
+}
+
+.bank-indicator--bank2 {
+  background-color: #ffea3f;
 }
