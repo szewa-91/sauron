@@ -5,10 +5,7 @@ import Transaction from '~/app/model/Transaction';
   name: 'signedAmount'
 })
 export class SignedAmountPipe implements PipeTransform {
-
   transform(transaction: Transaction): number {
-    console.log(transaction)
     return transaction.direction === 'RECEIVE' ? transaction.amount : - transaction.amount;
   }
-
 }

@@ -8,6 +8,7 @@ import { SummaryRoutingModule } from '~/app/pages/summary/summary-routing.module
 import { SummaryComponent } from './summary.component';
 import { BalanceComponent } from './balance/balance.component';
 import { UtilModule } from '~/app/util/util.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { UtilModule } from '~/app/util/util.module';
   ],
   imports: [
     CommonModule,
+    MatTooltipModule,
     SummaryRoutingModule,
     HttpClientModule,
     UtilModule,
