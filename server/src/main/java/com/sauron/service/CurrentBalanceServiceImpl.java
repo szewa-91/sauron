@@ -19,7 +19,7 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
     //TODO to reconsider after adding some persistence (?) mechanisms to transactions
     @Override
     public BigDecimal getCurrentBalance() {
-        Collection<Transaction> transactions = transactionService.getAllTransactions();
+        Collection<Transaction> transactions = transactionService.getAllTransactions(1L);
 
         return transactions.stream().map(this::convertToAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
     }

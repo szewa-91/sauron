@@ -21,8 +21,8 @@ public class TransactionController {
     }
 
     @GetMapping
-    public Collection<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+    public Collection<Transaction> getAllTransactions(Long userId) {
+        return transactionService.getAllTransactions(userId);
     }
 }
 
