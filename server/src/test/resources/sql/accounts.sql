@@ -1,24 +1,24 @@
-DELETE FROM ACCOUNTS;
-DELETE FROM USERS;
-DELETE FROM BANKS;
+delete from BANK_ACCOUNTS;
+delete from USERS;
+delete from BANKS;
 
-INSERT INTO USERS (ID, USERNAME, EMAIL)
-VALUES(1, 'Jon Snow', 'iknownothing@nightwatch.com');
+insert into USERS (ID, USERNAME, EMAIL)
+values(1, 'Jon Snow', 'iknownothing@nightwatch.com');
 
-INSERT INTO USERS (ID, USERNAME, EMAIL)
-VALUES(2, 'Daenerys Targaryen', 'khaleesi_542@gmail.com');
+insert into USERS (ID, USERNAME, EMAIL)
+values(2, 'Daenerys Targaryen', 'khaleesi_542@gmail.com');
 
-INSERT INTO BANKS (ID, NAME, LOGIN_URL)
-VALUES(1, 'Iron Bank', 'http://login.iron-bank.bv/');
+insert into BANKS (ID, NAME, LOGIN_URL)
+values(1, 'Iron Bank', 'http://login.iron-bank.bv/');
 
-INSERT INTO BANKS (ID, NAME, LOGIN_URL)
-VALUES(2, 'Northern Bank Of Winterfell', 'http://api.northernbank.nr/login');
+insert into BANKS (ID, NAME, LOGIN_URL)
+values(2, 'Northern Bank Of Winterfell', 'http://api.northernbank.nr/login');
 
-INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
-VALUES(1, 1, '');
+insert into BANK_ACCOUNTS (BANK_ID, USER_ID, COLOR)
+values(1, 1, 'YELLOW');
 
-INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
-VALUES(1, 2, '');
+insert into BANK_ACCOUNTS (BANK_ID, USER_ID, COLOR)
+values(1, 2, 'BLUE');
 
-INSERT INTO ACCOUNTS (BANK_ID, USER_ID, LOGIN)
-VALUES(2, 1, '');
+insert into BANK_ACCOUNTS (BANK_ID, USER_ID, COLOR)
+values(2, 1, 'YELLOW');

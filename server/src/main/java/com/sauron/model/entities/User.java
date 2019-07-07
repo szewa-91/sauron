@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USERS")
@@ -20,6 +22,9 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<BankAccount> bankAccounts;
 
     public Long getId() {
         return id;
@@ -43,5 +48,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Collection<BankAccount> getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccountConfigs(Collection<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
     }
 }

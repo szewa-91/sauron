@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "ACCOUNTS")
-public class Account {
+@Table(name = "BANK_ACCOUNTS")
+public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, updatable = false, nullable = false)
@@ -25,8 +25,8 @@ public class Account {
     @NotNull
     private Bank bank;
 
-    @Column(updatable = false, nullable = false)
-    private String login;
+    @Column(nullable = false)
+    private String color;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Account {
         this.bank = bank;
     }
 
-    public String getLogin() {
-        return login;
+    public String getColor() {
+        return color;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setColor(String color) {
+        this.color = color;
     }
 }
