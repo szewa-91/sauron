@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionsService } from 'src/app/data/transactions.service';
 import Transaction from 'src/app/model/Transaction';
+import { BankColorService } from '~/app/data/bank-color.service';
 
 @Component({
   selector: 'app-transactions',
@@ -11,7 +12,10 @@ export class TransactionsComponent implements OnInit {
   private error: string;
   private transactions: Array<Transaction>;
 
-  constructor(private transactionsService: TransactionsService) {
+  constructor(
+      private transactionsService: TransactionsService,
+      private bankColorService: BankColorService
+  ) {
   }
 
   ngOnInit() {
@@ -22,17 +26,7 @@ export class TransactionsComponent implements OnInit {
         );
   }
 
-  private getBankColor(transaction: Transaction): string {
-    switch (transaction.bankId) {
-      case 1:
-        return 'bank-indicator--bank1';
-      case 2:
-        return 'bank-indicator--bank2';
-      case 3:
-        return 'bank-indicator--bank3';
-      default:
-        return '';
-    }
+  resolveColor(transaction: Transaction): string {
+    return this.bankColorService.resolveBankColor(transaction.bankId);
   }
-
 }
