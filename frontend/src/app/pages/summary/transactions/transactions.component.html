@@ -2,14 +2,14 @@
   <ng-template [ngIf]="transactions != undefined">
     <div *ngFor="let transaction of transactions" class="transaction-view">
       <div class="transaction-title">
-        <span class="bank-indicator" [ngClass]="getBankColor(transaction)"></span>
+        <span class="bank-indicator" [ngStyle]="{backgroundColor: resolveColor(transaction)}"></span>
         <span
             class="trunkated"
             [matTooltip]="transaction.transactionTitle"
             matTooltipPosition="above">{{transaction.transactionTitle | uppercase}}</span>
       </div>
       <div class="transaction-amount">
-        <span class="transaction-amount__number">{{transaction | signedAmount}}</span>
+        <span class="transaction-amount__number">{{transaction.signedAmount}}</span>
         <span class="transaction-amount__currency">PLN</span>
       </div>
     </div>
