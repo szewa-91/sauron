@@ -13,18 +13,18 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc //need this in Spring Boot test
 @Sql(value = "classpath:sql/accounts.sql")
-public class TransactionControllerIntegrationTest {
+public class TransactionControllerIT {
 
     @Autowired
     private MockMvc mvc;
@@ -34,7 +34,7 @@ public class TransactionControllerIntegrationTest {
 
     @Before
     public void setup() {
-        mvc = MockMvcBuilders.standaloneSetup(new TransactionController(transactionService)).build();
+        mvc = standaloneSetup(new TransactionController(transactionService)).build();
     }
 
     @Test

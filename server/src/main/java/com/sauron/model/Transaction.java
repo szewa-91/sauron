@@ -2,11 +2,13 @@ package com.sauron.model;
 
 import com.sauron.model.entities.TransactionDirection;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Transaction {
+public class Transaction implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private Long bankId;
