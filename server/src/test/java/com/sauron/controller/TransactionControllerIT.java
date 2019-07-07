@@ -39,7 +39,7 @@ public class TransactionControllerIT {
 
     @Test
     public void shouldReturnAllTransactions() throws Exception {
-        given(transactionService.getAllTransactions()).willReturn(Collections.emptyList());
+        given(transactionService.getAllTransactions(1L)).willReturn(Collections.emptyList());
 
         mvc.perform(MockMvcRequestBuilders.get("/transactions")
                 .contentType(MediaType.APPLICATION_JSON))

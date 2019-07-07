@@ -9,6 +9,7 @@ public class BankView implements Serializable {
     private String name;
     private String loginUrl;
     private String color;
+    private String apiUrl;
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class BankView implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 }

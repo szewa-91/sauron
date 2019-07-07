@@ -25,7 +25,7 @@ public class CurrentBalanceServiceTest {
 
     @Test
     public void mockedReturnValueShouldBeAsHardcoded() {
-        given(transactionService.getAllTransactions()).willReturn(List.of(PAYMENT, COMPENSATION));
+        given(transactionService.getAllTransactions(1L)).willReturn(List.of(PAYMENT, COMPENSATION));
 
         BigDecimal result = currentBalanceService.getCurrentBalance();
 

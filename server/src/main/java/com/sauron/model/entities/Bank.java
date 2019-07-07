@@ -21,6 +21,9 @@ public class Bank {
     @Column(unique = true, nullable = false)
     private String loginUrl;
 
+    @Column(unique = true, nullable = false)
+    private String apiUrl;
+
     public Long getId() {
         return id;
     }
@@ -43,5 +46,13 @@ public class Bank {
 
     public void setLoginUrl(String loginUrl) {
         this.loginUrl = loginUrl;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 }

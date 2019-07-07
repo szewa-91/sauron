@@ -27,6 +27,12 @@ public class UserServiceImpl implements UserService {
                 .orElse(null);
     }
 
+    @Override
+    public UserView get(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        return convertToUserView(user);
+    }
+
     private UserView convertToUserView(User user) {
         UserView userView = new UserView();
         userView.setId(user.getId());
@@ -44,6 +50,7 @@ public class UserServiceImpl implements UserService {
         bankView.setLoginUrl(bankAccount.getBank().getLoginUrl());
         bankView.setName(bankAccount.getBank().getName());
         bankView.setColor(bankAccount.getColor());
+        bankView.setApiUrl(bankAccount.getBank().getApiUrl());
         return bankView;
     }
 }

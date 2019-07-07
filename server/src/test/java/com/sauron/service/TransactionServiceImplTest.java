@@ -32,14 +32,16 @@ public class TransactionServiceImplTest {
     private static final String MORDOR_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/mordor-bank";
 
     private TransactionService transactionService;
+    private UserService userService;
     private RestTemplate restTemplate;
 
     @Before
     public void setup() {
         restTemplate = mock(RestTemplate.class);
+        userService = mock(UserService.class);
         RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
         given(builder.build()).willReturn(restTemplate);
-        transactionService = new TransactionServiceImpl(builder);
+        transactionService = new TransactionServiceImpl(builder, userService);
     }
 
     @Test
@@ -50,7 +52,7 @@ public class TransactionServiceImplTest {
                 new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(Collections.emptyList(),
                 HttpStatus.OK));
 
-        Collection<Transaction> actual = transactionService.getAllTransactions();
+        Collection<Transaction> actual = transactionService.getAllTransactions(1L);
 
         then(actual).extracting(
                 Transaction::getId, Transaction::getBankId, Transaction::getTransactionTitle, Transaction::getAccountNumber,
