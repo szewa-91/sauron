@@ -1,18 +1,17 @@
 package com.sauron.fake.controller;
 
-import static com.sauron.fake.util.FakeBanksConstants.CONTEXT_PATH;
-import static com.sauron.fake.util.FakeBanksConstants.TRANSACTIONS_ENDPOINT;
-import static com.sauron.fake.util.FakeBanksUtils.generateTransactions;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.sauron.fake.model.ExternalTransaction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sauron.fake.model.ExternalTransaction;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.sauron.fake.util.FakeBanksConstants.CONTEXT_PATH;
+import static com.sauron.fake.util.FakeBanksConstants.TRANSACTIONS_ENDPOINT;
+import static com.sauron.fake.util.FakeBanksUtils.generateTransactions;
 
 /**
  * Created by marcin.lopatka on 27-06-2019

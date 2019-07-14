@@ -1,10 +1,10 @@
 package com.sauron.fake.model;
 
+import com.sauron.model.entities.TransactionDirection;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
-import com.sauron.model.entities.TransactionDirection;
 
 /**
  * Created by marcin.lopatka on 27-06-2019
