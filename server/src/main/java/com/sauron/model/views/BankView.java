@@ -11,6 +11,17 @@ public class BankView implements Serializable {
     private String color;
     private String apiUrl;
 
+    public BankView() {
+    }
+
+    public BankView(Long id, String name, String loginUrl, String color, String apiUrl) {
+        this.id = id;
+        this.name = name;
+        this.loginUrl = loginUrl;
+        this.color = color;
+        this.apiUrl = apiUrl;
+    }
+
     public Long getId() {
         return id;
     }

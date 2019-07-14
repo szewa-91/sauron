@@ -12,24 +12,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import static com.sauron.constants.TransactionConstants.FIXED_DATE;
+import static com.sauron.constants.BankConstants.MOCKED_BANK_API_URL;
 import static com.sauron.constants.TransactionConstants.PAYMENT;
+import static com.sauron.constants.TransactionConstants.TRANSACTION_FIXED_DATE;
+import static com.sauron.constants.UserConstants.MOCKED_USER;
+import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
 import static com.sauron.model.entities.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 public class TransactionServiceImplTest {
-
-    private static final String SHIRE_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/shire-bank";
-    private static final String MORDOR_BANK_TRANSACTIONS_URL = "http://localhost:8080/fake/transactions/mordor-bank";
 
     private TransactionService transactionService;
     private UserService userService;
@@ -46,19 +45,20 @@ public class TransactionServiceImplTest {
 
     @Test
     public void allTransactionsShouldReturnValidTransaction() {
-        given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET, URI.create(SHIRE_BANK_TRANSACTIONS_URL)),
-                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
-        given(restTemplate.exchange(new RequestEntity<Collection<Transaction>>(HttpMethod.GET, URI.create(MORDOR_BANK_TRANSACTIONS_URL)),
-                new ParameterizedTypeReference<Collection<Transaction>>(){})).willReturn(new ResponseEntity<>(Collections.emptyList(),
-                HttpStatus.OK));
+        given(userService.get(MOCKED_USER_ID)).willReturn(MOCKED_USER);
+        given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
+                        fromHttpUrl(MOCKED_BANK_API_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
+                new ParameterizedTypeReference<Collection<Transaction>>() {
+                }))
+                .willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
 
-        Collection<Transaction> actual = transactionService.getAllTransactions(1L);
+        Collection<Transaction> actual = transactionService.getAllTransactions(MOCKED_USER_ID);
 
         then(actual).extracting(
                 Transaction::getId, Transaction::getBankId, Transaction::getTransactionTitle, Transaction::getAccountNumber,
                 Transaction::getDirection, Transaction::getAmount, Transaction::getTransactionDate
         ).containsExactly(
-                tuple(1L, 1L, "Money transfer", "123456789", PAY, BigDecimal.valueOf(100), LocalDateTime.now(FIXED_DATE)));
+                tuple(1L, 1L, "Money transfer", "123456789", PAY, BigDecimal.valueOf(100), LocalDateTime.now(TRANSACTION_FIXED_DATE)));
     }
 
 }

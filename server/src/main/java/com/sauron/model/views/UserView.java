@@ -11,6 +11,16 @@ public class UserView implements Serializable {
     private String email;
     private Collection<BankView> banks;
 
+    public UserView() {
+    }
+
+    public UserView(Long id, String username, String email, Collection<BankView> banks) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.banks = banks;
+    }
+
     public Long getId() {
         return id;
     }
