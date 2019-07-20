@@ -26,6 +26,16 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<BankAccount> bankAccounts;
 
+    public User() {
+    }
+
+    public User(Long id, String username, String email, Collection<BankAccount> bankAccounts) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.bankAccounts = bankAccounts;
+    }
+
     public Long getId() {
         return id;
     }

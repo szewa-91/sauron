@@ -1,6 +1,7 @@
 package com.sauron.service;
 
 import com.sauron.controller.LoginData;
+import com.sauron.exception.EntityNotFoundException;
 import com.sauron.model.entities.BankAccount;
 import com.sauron.model.entities.User;
 import com.sauron.model.views.BankView;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+    public static final String NOT_EXISTING_USER_MSG = "User with id + %d doesn't exist";
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -29,8 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserView get(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
-        return convertToUserView(user);
+        return userRepository.findById(userId)
+                .map(this::convertToUserView)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(NOT_EXISTING_USER_MSG, userId)));
     }
 
     private UserView convertToUserView(User user) {

@@ -1,6 +1,7 @@
 package com.sauron.service;
 
 import com.sauron.model.Transaction;
+import com.sauron.repo.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static com.sauron.constants.BankConstants.MOCKED_BANK_API_URL;
 import static com.sauron.constants.TransactionConstants.PAYMENT;
@@ -31,21 +33,21 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 public class TransactionServiceImplTest {
 
     private TransactionService transactionService;
-    private UserService userService;
+    private UserRepository userRepository;
     private RestTemplate restTemplate;
 
     @Before
     public void setup() {
         restTemplate = mock(RestTemplate.class);
-        userService = mock(UserService.class);
+        userRepository = mock(UserRepository.class);
         RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
         given(builder.build()).willReturn(restTemplate);
-        transactionService = new TransactionServiceImpl(builder, userService);
+        transactionService = new TransactionServiceImpl(builder, userRepository);
     }
 
     @Test
     public void allTransactionsShouldReturnValidTransaction() {
-        given(userService.get(MOCKED_USER_ID)).willReturn(MOCKED_USER);
+        given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(MOCKED_USER));
         given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
                         fromHttpUrl(MOCKED_BANK_API_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
                 new ParameterizedTypeReference<Collection<Transaction>>() {
