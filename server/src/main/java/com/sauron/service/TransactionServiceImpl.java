@@ -47,19 +47,16 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Collection<Transaction> getBankTransactions(Bank bank, Long userId) {
         Collection<Transaction> transactions = fetchTransactions(bank, userId);
-
-        if (transactions == null) {
-            return Collections.emptyList();
-        }
-
         return transactions.stream().peek(t -> t.setBankId(bank.getId())).collect(Collectors.toList());
     }
 
     private Collection<Transaction> fetchTransactions(Bank bankView, Long userId) {
-        return restTemplate.exchange(
+        Collection<Transaction> transactions = restTemplate.exchange(
                 createRequestEntity(bankView.getApiUrl(), userId),
                 RESPONSE_TYPE)
                 .getBody();
+
+        return transactions != null ? transactions : Collections.emptyList();
     }
 
     private <T> RequestEntity<T> createRequestEntity(String url, Long userId) {

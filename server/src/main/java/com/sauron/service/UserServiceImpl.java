@@ -15,7 +15,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    public static final String NOT_EXISTING_USER_MSG = "User with id + %d doesn't exist";
+
+    private static final String NOT_EXISTING_USER_MSG = "User with id + %d doesn't exist";
+
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {

@@ -31,7 +31,7 @@ public class BankAccount {
     public BankAccount() {
     }
 
-    public BankAccount(Long id, @NotNull User user, @NotNull Bank bank, String color) {
+    public BankAccount(Long id, User user, Bank bank, String color) {
         this.id = id;
         this.user = user;
         this.bank = bank;
