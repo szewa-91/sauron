@@ -28,6 +28,16 @@ public class BankAccount {
     @Column(nullable = false)
     private String color;
 
+    public BankAccount() {
+    }
+
+    public BankAccount(Long id, @NotNull User user, @NotNull Bank bank, String color) {
+        this.id = id;
+        this.user = user;
+        this.bank = bank;
+        this.color = color;
+    }
+
     public Long getId() {
         return id;
     }
