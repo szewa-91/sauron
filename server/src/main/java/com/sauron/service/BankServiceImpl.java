@@ -1,5 +1,6 @@
 package com.sauron.service;
 
+import com.sauron.exception.EntityNotFoundException;
 import com.sauron.model.entities.Bank;
 import com.sauron.model.views.BankView;
 import com.sauron.repo.BankRepository;
@@ -11,6 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class BankServiceImpl implements BankService {
 
+    private static final String NOT_EXISTING_BANK_MSG = "Bank with id + %d doesn't exist";
+
     private final BankRepository bankRepository;
 
     public BankServiceImpl(BankRepository bankRepository) {
@@ -19,16 +22,19 @@ public class BankServiceImpl implements BankService {
 
     public List<BankView> getAllBanks() {
         List<Bank> banks = bankRepository.findAll();
-        return banks.stream().map(this::convert).collect(Collectors.toList());
+        return banks.stream()
+                .map(this::convertToBankView)
+                .collect(Collectors.toList());
     }
 
     @Override
     public BankView getBank(Long bankId) {
-        Bank bank = bankRepository.findById(bankId).orElseThrow(RuntimeException::new);
-        return convert(bank);
+        return bankRepository.findById(bankId)
+                .map(this::convertToBankView)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(NOT_EXISTING_BANK_MSG, bankId)));
     }
 
-    private BankView convert(Bank bank) {
+    private BankView convertToBankView(Bank bank) {
         BankView bankView = new BankView();
         bankView.setId(bank.getId());
         bankView.setName(bank.getName());
