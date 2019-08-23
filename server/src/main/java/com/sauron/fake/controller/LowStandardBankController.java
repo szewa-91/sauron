@@ -23,7 +23,7 @@ public class LowStandardBankController {
 	
 	private static final int TRANSACTIONS_COUNT = 15;
 	private static final int MAX_TRANSACTION_AMOUNT = 5000;
-	private static final int MIN_BALANCE_ACCOUNT = -100;
+	private static final int MIN_BALANCE_ACCOUNT = -1000;
 	private static final int MAX_BALANCE_ACCOUNT = 999899;
 	
 	private List<ExternalTransaction> transactions;

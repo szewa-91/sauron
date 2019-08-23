@@ -1,7 +1,6 @@
 package com.sauron.service;
 
 import com.sauron.repo.UserRepository;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,10 +15,11 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import static com.sauron.constants.BankConstants.MOCKED_BANK_BALANCE_URL;
-import static com.sauron.constants.BankConstants.MOCKED_BANK_TRANSACTION_URL;
 import static com.sauron.constants.TransactionConstants.CURRENT_BALANCE;
 import static com.sauron.constants.TransactionConstants.SUM_OF_BALANCES;
-import static com.sauron.constants.UserConstants.*;
+import static com.sauron.constants.UserConstants.ANOTHER_MOCKED_USER;
+import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
@@ -40,7 +40,7 @@ public class CurrentBalanceServiceTest {
     }
 
     @Test
-    public void mockedReturnValueShouldBeAsHardcoded() {
+    public void shouldReturnValidCurrentBalance() {
         given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(ANOTHER_MOCKED_USER));
         given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
                         fromHttpUrl(MOCKED_BANK_BALANCE_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
@@ -49,7 +49,7 @@ public class CurrentBalanceServiceTest {
                 .willReturn(new ResponseEntity<>(CURRENT_BALANCE, HttpStatus.OK));
 
         BigDecimal currentBalance = currentBalanceService.getCurrentBalance(MOCKED_USER_ID);
-        Assert.assertEquals(SUM_OF_BALANCES, currentBalance);
+        then(currentBalance).isEqualTo(SUM_OF_BALANCES);
 
     }
 }
