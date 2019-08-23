@@ -30,11 +30,12 @@ public class Bank {
     public Bank() {
     }
 
-    public Bank(Long id, String name, String loginUrl, String apiUrl) {
+    public Bank(Long id, String name, String loginUrl, String transactionUrl, String balanceUrl) {
         this.id = id;
         this.name = name;
         this.loginUrl = loginUrl;
-        this.transactionUrl = apiUrl;
+        this.transactionUrl = transactionUrl;
+        this.balanceUrl = balanceUrl;
     }
 
     public Long getId() {
