@@ -50,6 +50,5 @@ public class CurrentBalanceServiceTest {
         BigDecimal currentBalance = currentBalanceService.getCurrentBalance(MOCKED_USER_ID);
         Assert.assertEquals(SUM_OF_BALANCES, currentBalance);
 
-
     }
 }
