@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         bankView.setLoginUrl(bankAccount.getBank().getLoginUrl());
         bankView.setName(bankAccount.getBank().getName());
         bankView.setColor(bankAccount.getColor());
-        bankView.setApiUrl(bankAccount.getBank().getApiUrl());
+        bankView.setApiUrl(bankAccount.getBank().getTransactionUrl());
         return bankView;
     }
 }

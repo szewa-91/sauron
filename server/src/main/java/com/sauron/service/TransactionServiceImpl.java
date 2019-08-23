@@ -52,7 +52,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Collection<Transaction> fetchTransactions(Bank bankView, Long userId) {
         Collection<Transaction> transactions = restTemplate.exchange(
-                createRequestEntity(bankView.getApiUrl(), userId),
+                createRequestEntity(bankView.getTransactionUrl(), userId),
                 RESPONSE_TYPE)
                 .getBody();
 

@@ -22,7 +22,10 @@ public class Bank {
     private String loginUrl;
 
     @Column(unique = true, nullable = false)
-    private String apiUrl;
+    private String transactionUrl;
+
+    @Column(unique = true, nullable = false)
+    private String balanceUrl;
 
     public Bank() {
     }
@@ -31,7 +34,7 @@ public class Bank {
         this.id = id;
         this.name = name;
         this.loginUrl = loginUrl;
-        this.apiUrl = apiUrl;
+        this.transactionUrl = apiUrl;
     }
 
     public Long getId() {
@@ -58,11 +61,19 @@ public class Bank {
         this.loginUrl = loginUrl;
     }
 
-    public String getApiUrl() {
-        return apiUrl;
+    public String getTransactionUrl() {
+        return transactionUrl;
     }
 
-    public void setApiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
+    public void setTransactionUrl(String transactionUrl) {
+        this.transactionUrl = transactionUrl;
+    }
+
+    public String getBalanceUrl() {
+        return balanceUrl;
+    }
+
+    public void setBalanceUrl(String balanceUrl) {
+        this.balanceUrl = balanceUrl;
     }
 }
