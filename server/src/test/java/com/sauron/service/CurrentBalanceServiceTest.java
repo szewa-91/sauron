@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.sauron.constants.BankConstants.MOCKED_BANK_BALANCE_URL;
 import static com.sauron.constants.BankConstants.MOCKED_BANK_TRANSACTION_URL;
 import static com.sauron.constants.TransactionConstants.CURRENT_BALANCE;
 import static com.sauron.constants.TransactionConstants.SUM_OF_BALANCES;
@@ -42,7 +43,7 @@ public class CurrentBalanceServiceTest {
     public void mockedReturnValueShouldBeAsHardcoded() {
         given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(ANOTHER_MOCKED_USER));
         given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
-                        fromHttpUrl(MOCKED_BANK_TRANSACTION_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
+                        fromHttpUrl(MOCKED_BANK_BALANCE_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
                 new ParameterizedTypeReference<BigDecimal>() {
                 }))
                 .willReturn(new ResponseEntity<>(CURRENT_BALANCE, HttpStatus.OK));
