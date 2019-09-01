@@ -25,6 +25,8 @@ public final class TransactionConstants {
             ACCOUNT_NUMBER, PAY, PAYMENT_AMOUNT, LocalDateTime.now(TRANSACTION_FIXED_DATE));
     public static final Transaction COMPENSATION = new Transaction(COMPENSATION_ID, SHIRE_BANK_ID, PAYMENT_NAME,
             ACCOUNT_NUMBER, RECEIVE, COMPENSATION_AMOUNT, LocalDateTime.now(TRANSACTION_FIXED_DATE));
+    public static final BigDecimal CURRENT_BALANCE = BigDecimal.valueOf(15777);
+    public static final BigDecimal SUM_OF_BALANCES = BigDecimal.valueOf(31554);
 
     private TransactionConstants() {
     }

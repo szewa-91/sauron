@@ -43,4 +43,8 @@ public class FakeBanksUtils {
 		int generatedIndex = ThreadLocalRandom.current().nextInt(list.size());
 		return list.get(generatedIndex);
 	}
+
+	public static BigDecimal generateCurrentBalance(int minCurrentBalance, int maxCurrentBalance) {
+		return new BigDecimal(ThreadLocalRandom.current().nextInt(minCurrentBalance, maxCurrentBalance));
+	}
 }

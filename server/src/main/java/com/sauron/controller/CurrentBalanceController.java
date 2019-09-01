@@ -20,8 +20,8 @@ public class CurrentBalanceController {
     }
 
     @GetMapping
-    public BigDecimal getAllTransactions() {
-        return currentBalanceService.getCurrentBalance();
+    public BigDecimal getCurrentBalance(Long userId) {
+        return currentBalanceService.getCurrentBalance(userId);
     }
 }
 

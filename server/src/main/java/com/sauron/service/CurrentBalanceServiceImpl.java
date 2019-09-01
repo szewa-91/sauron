@@ -1,31 +1,61 @@
 package com.sauron.service;
 
-import com.sauron.model.Transaction;
-import com.sauron.model.entities.TransactionDirection;
+import com.sauron.model.entities.Bank;
+import com.sauron.model.entities.BankAccount;
+import com.sauron.model.entities.User;
+import com.sauron.repo.UserRepository;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
 
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Service
 public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
-    private final TransactionService transactionService;
+    private static final String USER_ID_PARAM = "userId";
+    private static final ParameterizedTypeReference<BigDecimal> RESPONSE_TYPE = new ParameterizedTypeReference<>() {
+    };
+    private final UserRepository userRepository;
+    private final RestTemplate restTemplate;
 
-    public CurrentBalanceServiceImpl(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public CurrentBalanceServiceImpl(UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.userRepository = userRepository;
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     //TODO to reconsider after adding some persistence (?) mechanisms to transactions
     @Override
-    public BigDecimal getCurrentBalance() {
-        Collection<Transaction> transactions = transactionService.getAllTransactions(1L);
+    public BigDecimal getCurrentBalance(final Long userId) {
 
-        return transactions.stream().map(this::convertToAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        Collection<BankAccount> userAccounts = userRepository.findById(userId)
+                .map(User::getBankAccounts)
+                .orElse(Collections.emptyList());
+
+        return userAccounts.stream()
+                .map(acc -> fetchCurrentBalance(acc.getBank(), userId))
+                .collect(Collectors.toList())
+                .stream().reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal convertToAmount(Transaction transaction) {
-
-        return TransactionDirection.PAY == transaction.getDirection() ? transaction.getAmount().negate() : transaction.getAmount();
+    private BigDecimal fetchCurrentBalance(Bank bankView, Long userId) {
+        return restTemplate.exchange(
+                createRequestEntity(bankView.getBalanceUrl(), userId),
+                RESPONSE_TYPE)
+                .getBody();
     }
+
+    private <T> RequestEntity<T> createRequestEntity(String url, Long userId) {
+        UriComponents uriComponents = fromHttpUrl(url).queryParam(USER_ID_PARAM, userId).build();
+        return new RequestEntity<>(HttpMethod.GET, uriComponents.toUri());
+    }
+
 }
