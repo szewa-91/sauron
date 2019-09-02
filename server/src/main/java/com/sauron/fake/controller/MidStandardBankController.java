@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sauron.fake.util.FakeBanksConstants.CONTEXT_PATH;
-import static com.sauron.fake.util.FakeBanksConstants.TRANSACTIONS_ENDPOINT;
+import static com.sauron.fake.util.FakeBanksConstants.*;
+import static com.sauron.fake.util.FakeBanksUtils.generateCurrentBalance;
 import static com.sauron.fake.util.FakeBanksUtils.generateTransactions;
 
 /**
@@ -22,15 +23,24 @@ public class MidStandardBankController {
 	
 	private static final int TRANSACTIONS_COUNT = 35;
 	private static final int MAX_TRANSACTION_AMOUNT = 10000;
+	private static final int MIN_BALANCE_ACCOUNT = -100;
+	private static final int MAX_BALANCE_ACCOUNT = 999899;
 	
 	private List<ExternalTransaction> transactions;
+	private BigDecimal currentBalance;
 	
 	public MidStandardBankController() {
 		transactions = generateTransactions(TRANSACTIONS_COUNT, MAX_TRANSACTION_AMOUNT);
+		currentBalance = generateCurrentBalance(MIN_BALANCE_ACCOUNT, MAX_BALANCE_ACCOUNT);
 	}
 	
 	@GetMapping(TRANSACTIONS_ENDPOINT)
 	public List<ExternalTransaction> getAllTransactions(final @RequestParam Long userId) {
 		return transactions.stream().filter(t -> t.getUserId().equals(userId)).collect(Collectors.toList());
+	}
+
+	@GetMapping(CURRENT_BALANCE_ENDPOINT)
+	public BigDecimal getCurrentBalance(final @RequestParam Long userId) {
+		return currentBalance;
 	}
 }
