@@ -64,7 +64,7 @@ public class UserServiceImplTest {
         User user = new User();
         user.setId(ID);
         user.setUsername(USERNAME);
-        user.setBankAccountConfigs(List.of(accounts));
+        user.setBankAccounts(List.of(accounts));
         return Optional.of(user);
     }
 

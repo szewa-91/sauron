@@ -2,7 +2,7 @@
   <ng-template [ngIf]="transactions != undefined">
     <div *ngFor="let transaction of transactions" class="transaction-view">
       <div class="transaction-title">
-        <span class="bank-indicator" [ngStyle]="{backgroundColor: resolveColor(transaction)}"></span>
+        <span class="bank-indicator" [ngClass]="'background-' + resolveColor(transaction)"></span>
         <span
             class="trunkated"
             [matTooltip]="transaction.transactionTitle"

@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private static final String NOT_EXISTING_USER_MSG = "User with id + %d doesn't exist";
+    private static final String NOT_EXISTING_USER_WITH_ID_MSG = "User with id + %d doesn't exist";
+    private static final String NOT_EXISTING_USER_WITH_NAME_MSG = "User with name + %s doesn't exist";
 
     private final UserRepository userRepository;
 
@@ -28,14 +29,18 @@ public class UserServiceImpl implements UserService {
     public UserView login(LoginData loginData) {
         return userRepository.findByUsername(loginData.getLogin())
                 .map(this::convertToUserView)
-                .orElse(null);
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(NOT_EXISTING_USER_WITH_NAME_MSG, loginData.getLogin())
+                ));
     }
 
     @Override
     public UserView get(Long userId) {
         return userRepository.findById(userId)
                 .map(this::convertToUserView)
-                .orElseThrow(() -> new EntityNotFoundException(String.format(NOT_EXISTING_USER_MSG, userId)));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(NOT_EXISTING_USER_WITH_ID_MSG, userId)
+                ));
     }
 
     private UserView convertToUserView(User user) {
