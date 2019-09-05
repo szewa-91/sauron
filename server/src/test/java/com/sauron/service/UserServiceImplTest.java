@@ -1,6 +1,7 @@
 package com.sauron.service;
 
 import com.sauron.controller.LoginData;
+import com.sauron.exception.EntityNotFoundException;
 import com.sauron.model.entities.Bank;
 import com.sauron.model.entities.BankAccount;
 import com.sauron.model.entities.User;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -51,13 +53,11 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void shouldReturnNullIfNoUser() {
+    public void shouldThrowExceptionIfNoUser() {
         given(userRepository.findByUsername(USERNAME)).willReturn(Optional.empty());
 
-        UserView userView = userService.login(new LoginData(USERNAME, PASSWORD));
-
-        then(userView).isNull();
-
+        thenThrownBy(() -> userService.login(new LoginData(USERNAME, PASSWORD))
+        ).isInstanceOf(EntityNotFoundException.class);
     }
 
     private Optional<User> user(BankAccount... accounts) {
