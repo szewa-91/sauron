@@ -1,2 +1,18 @@
 // Place any CSS rules you want to apply on both iOS and Android here.
 // This is where the vast majority of your CSS code goes.
+
+$orange: #ff7253;
+$light-blue: #57c3ff;
+$yellow: #ffea3f;
+
+.background-ORANGE {
+  background-color: $orange;
+}
+
+.background-LIGHT_BLUE {
+  background-color: $light-blue;
+}
+
+.background-YELLOW {
+  background-color: $yellow;
+}

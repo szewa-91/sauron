@@ -3,7 +3,10 @@ package com.sauron.controller;
 import com.sauron.model.views.UserView;
 import com.sauron.service.UserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +21,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public UserView login(LoginData loginData) {
-
+    public UserView login(@RequestBody LoginData loginData) {
         return userService.login(loginData);
+    }
+
+    @GetMapping("/{userId}")
+    public UserView getUserData(@PathVariable("userId") Long userId) {
+        return userService.get(userId);
     }
 
 }

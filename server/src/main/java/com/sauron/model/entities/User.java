@@ -64,7 +64,7 @@ public class User {
         return bankAccounts;
     }
 
-    public void setBankAccountConfigs(Collection<BankAccount> bankAccounts) {
+    public void setBankAccounts(Collection<BankAccount> bankAccounts) {
         this.bankAccounts = bankAccounts;
     }
 }
