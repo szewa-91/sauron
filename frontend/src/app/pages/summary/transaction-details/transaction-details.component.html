@@ -1,0 +1,37 @@
+<div class="centered-column">
+  <app-balance></app-balance>
+  <span class="dark-rounded-label">operation details</span>
+
+  <div class="transactions-container dark-rounded-box fill">
+    <ng-template [ngIf]="transaction != undefined">
+      <div class="transaction-view">
+        <span class="transaction-title">{{transaction.transactionTitle | uppercase}}</span>
+        <span class="transaction-amount">
+      <span class="transaction-amount__number">{{transaction.amount}}</span>
+      <span class="transaction-amount__currency">PLN</span>
+    </span>
+      </div>
+      <table>
+        <tr>
+          <td>Transaction type:</td>
+          <td>{{printDirection(transaction)}}</td>
+        </tr>
+        <tr>
+          <td>Amount:</td>
+          <td>{{transaction.amount}} PLN</td>
+        </tr>
+        <tr>
+          <td>Account number:</td>
+          <td>{{transaction.accountNumber}}</td>
+        </tr>
+        <tr>
+          <td>Transaction date:</td>
+          <td>{{transaction.transactionDate}}</td>
+        </tr>
+      </table>
+      <div>
+        <a routerLink="/summary">Back to summary</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

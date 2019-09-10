@@ -1,0 +1,27 @@
+.transaction-title {
+  width: 70%;
+  font-size: 1.3em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-amount {
+  width: 30%;
+  text-align: right;
+}
+
+.transaction-amount__number {
+  font-size: 1.3em;
+  margin-right: 0.2em;
+}
+
+.transaction-amount__currency {
+  font-size: 0.6em;
+  color: #333333;
+}
+
+.transaction-view {
+  display: flex;
+  flex-direction: row;
+}

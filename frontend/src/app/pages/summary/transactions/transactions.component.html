@@ -1,6 +1,6 @@
-<div class="transactions-container">
+<div class="transactions-container dark-rounded-box">
   <ng-template [ngIf]="transactions != undefined">
-    <div *ngFor="let transaction of transactions" class="transaction-view">
+    <div *ngFor="let transaction of transactions" class="transaction-view" (click)="onTransactionSelected(transaction)">
       <div class="transaction-title">
         <span class="bank-indicator" [ngClass]="'background-' + resolveColor(transaction)"></span>
         <span

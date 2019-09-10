@@ -2,8 +2,8 @@ package com.sauron.constants;
 
 import com.sauron.model.entities.User;
 
-import static com.sauron.constants.BankAccountContants.ANOTHER_MOCKED_BANK_ACCOUNTS_LIST;
-import static com.sauron.constants.BankAccountContants.MOCKED_BANK_ACCOUNTS_LIST;
+import static com.sauron.constants.BankAccountConstants.ANOTHER_MOCKED_BANK_ACCOUNTS_LIST;
+import static com.sauron.constants.BankAccountConstants.MOCKED_BANK_ACCOUNTS_LIST;
 public final class UserConstants {
 
     public static final Long MOCKED_USER_ID = 1l;

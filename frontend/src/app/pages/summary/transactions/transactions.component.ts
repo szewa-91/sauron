@@ -4,7 +4,7 @@ import Transaction from 'src/app/model/Transaction';
 import { Bank } from '~/app/model/Bank';
 import { AuthService } from '~/app/auth/auth.service';
 import { catchError, tap } from 'rxjs/operators';
-import { flatMap } from 'node_modules/rxjs/internal/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -17,6 +17,7 @@ export class TransactionsComponent implements OnInit {
   private banks: Array<Bank>;
 
   constructor(
+      private router: Router,
       private transactionsService: TransactionsService,
       private authService: AuthService) {
   }
@@ -24,16 +25,23 @@ export class TransactionsComponent implements OnInit {
   ngOnInit() {
     this.authService.getUserData()
         .pipe(
-            tap(user => this.banks = user.banks),
-            flatMap(user => this.transactionsService.fetchTransactions(user.id)),
+            tap(user => this.banks = user.banks)
+        ).subscribe();
+
+    this.transactionsService.fetchTransactions()
+        .pipe(
             tap(transactions => this.transactions = transactions),
             catchError(error => this.error = error)
         ).subscribe();
   }
 
+  onTransactionSelected(transaction: Transaction) {
+    this.router.navigate([`/summary/transactions`, transaction.id]); // TODO make id unique on backend side
+  }
+
   resolveColor(transaction: Transaction): string {
     return this.banks
-        ? this.banks.filter(bank => bank.id === transaction.bankId).pop().color.toString()
+        ? this.banks.find(bank => bank.id === transaction.bankId).color
         : undefined;
   }
 }

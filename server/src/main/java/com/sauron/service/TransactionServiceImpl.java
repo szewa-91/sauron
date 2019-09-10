@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponents;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
@@ -42,6 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         return userAccounts.stream()
                 .flatMap(acc -> getBankTransactions(acc.getBank(), userId).stream())
+                .sorted(Comparator.comparing(Transaction::getTransactionDate).reversed())
                 .collect(Collectors.toList());
     }
 
