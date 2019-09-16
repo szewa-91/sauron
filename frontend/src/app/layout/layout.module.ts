@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { MenuComponent } from './menu/menu.component';
+import { LayoutComponent } from './layout.component';
 
 @NgModule({
-  declarations: [MenuComponent],
+  declarations: [MenuComponent, LayoutComponent],
   imports: [
     CommonModule,
     LayoutRoutingModule
   ],
   exports: [
-      MenuComponent
+      LayoutComponent
   ]
 })
 export class LayoutModule { }

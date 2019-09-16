@@ -17,8 +17,13 @@ export default class Transaction {
   direction: TransactionDirection;
   amount: number;
   transactionDate: string;
+
   get signedAmount(): number {
     return this.direction === TransactionDirection.RECEIVE ? this.amount : -this.amount;
+  }
+
+  public static instantiate(rawObject: Transaction) {
+    return new Transaction(rawObject);
   }
 }
 

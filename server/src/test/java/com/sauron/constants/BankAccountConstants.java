@@ -8,7 +8,7 @@ import static com.sauron.constants.BankConstants.MOCKED_BANK;
 import static com.sauron.constants.UserConstants.ANOTHER_MOCKED_USER;
 import static com.sauron.constants.UserConstants.MOCKED_USER;
 
-public final class BankAccountContants {
+public final class BankAccountConstants {
 
     public static final Long MOCKED_BANK_ACCOUNT_ID = 1L;
     public static final Long ANOTHER_MOCKED_BANK_ACCOUNT_ID = 2L;
@@ -18,6 +18,6 @@ public final class BankAccountContants {
     public static final List<BankAccount> MOCKED_BANK_ACCOUNTS_LIST = List.of(MOCKED_BANK_ACCOUNT);
     public static final List<BankAccount> ANOTHER_MOCKED_BANK_ACCOUNTS_LIST = List.of(MOCKED_BANK_ACCOUNT, ANOTHER_BANK_ACCOUNT);
 
-    private BankAccountContants() {
+    private BankAccountConstants() {
     }
 }

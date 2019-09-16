@@ -5,6 +5,48 @@ $orange: #ff7253;
 $light-blue: #57c3ff;
 $yellow: #ffea3f;
 
+body {
+  background-color: #202020;
+  color: mintcream;
+}
+
+a {
+  text-transform: uppercase;
+  color: #cccccc;
+}
+
+.dark-rounded-box {
+  background-color: #151515;
+  border-radius: 24px;
+  padding: 16px;
+  margin: 8px;
+}
+
+.dark-rounded-label {
+  @extend .dark-rounded-box;
+  width: auto;
+  text-align: center;
+}
+
+.page-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.centered-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.fill {
+  width: 100%;
+}
+
 .background-ORANGE {
   background-color: $orange;
 }

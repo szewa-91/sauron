@@ -2,24 +2,43 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Transaction from '~/app/model/Transaction';
-import { map } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
+import { AuthService } from '~/app/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionsService {
-  constructor(private httpClient: HttpClient) {
+  private $transactions: Observable<Array<Transaction>>;
+
+  constructor(
+      private authService: AuthService,
+      private httpClient: HttpClient) {
+    this.$transactions = this.authService.getUserData()
+        .pipe(
+            flatMap(
+                user => {
+                  const params = new HttpParams().set('userId', user.id.toString());
+                  return this.httpClient.get<Array<Transaction>>('http://localhost:8080/transactions', { params });
+                })
+        );
   }
 
-  public fetchTransactions(userId: number): Observable<Array<Transaction>> {
-    const params = new HttpParams().set('userId', userId.toString());
-    return this.httpClient.get<Array<Transaction>>('http://localhost:8080/transactions', {params})
+  public fetchTransactions(): Observable<Array<Transaction>> {
+    return this.$transactions
         .pipe(
             map(this.transformEveryTransactionToClassInstance) // without this mapping a transaction is not a class' instance
         );
   }
 
+  public getTransaction(id: number): Observable<Transaction> {
+    return this.$transactions.pipe(
+        map(transactions => transactions.find(transaction => transaction.id === id)),
+        map(Transaction.instantiate)
+    );
+  }
+
   private transformEveryTransactionToClassInstance(transactions) {
-    return transactions.map(transactionObject => new Transaction(transactionObject));
+    return transactions.map(Transaction.instantiate);
   }
 }

@@ -3,16 +3,14 @@ export class Bank {
   constructor(rawObject) {
     this.id = rawObject.id;
     this.name = rawObject.name;
-    this.color = BankColor[rawObject.color as string];
+    this.color = rawObject.color;
   }
 
   id: number;
   name: string;
-  color: BankColor;
-}
+  color: string;
 
-export enum BankColor {
-  ORANGE,
-  LIGHT_BLUE,
-  YELLOW
+  public static instantiate(rawObject) {
+    return new Bank(rawObject);
+  }
 }

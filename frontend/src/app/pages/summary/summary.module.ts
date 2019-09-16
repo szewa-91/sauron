@@ -8,10 +8,12 @@ import { SummaryComponent } from './summary.component';
 import { BalanceComponent } from './balance/balance.component';
 import { UtilModule } from '~/app/util/util.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TransactionDetailsComponent } from '~/app/pages/summary/transaction-details/transaction-details.component';
 
 @NgModule({
   declarations: [
     TransactionsComponent,
+    TransactionDetailsComponent,
     SummaryComponent,
     BalanceComponent
   ],

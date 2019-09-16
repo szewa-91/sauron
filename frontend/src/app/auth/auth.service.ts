@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from 'node_modules/@angular/common/http';
 import { User } from '~/app/model/User';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 const USER_ID_KEY = 'userId';
 const LOGIN_KEY = 'login';
@@ -49,7 +50,10 @@ export class AuthService {
     const userId = localStorage.getItem(USER_ID_KEY);
     if (userId) {
       this.httpClient.get<User>(`http://localhost:8080/users/${userId}`)
-          .subscribe(userData => this.userData$.next(userData));
+          .pipe(
+              map(User.instantiate),
+                  tap(userData => this.userData$.next(userData))
+          ).subscribe();
     }
   }
 }

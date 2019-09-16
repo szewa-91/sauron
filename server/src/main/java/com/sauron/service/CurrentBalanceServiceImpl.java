@@ -13,8 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.Collections;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
@@ -42,8 +42,7 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
         return userAccounts.stream()
                 .map(acc -> fetchCurrentBalance(acc.getBank(), userId))
-                .collect(Collectors.toList())
-                .stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private BigDecimal fetchCurrentBalance(Bank bankView, Long userId) {

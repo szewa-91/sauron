@@ -3,6 +3,7 @@ package com.sauron.fake.util;
 import com.sauron.fake.model.ExternalTransaction;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,9 +31,10 @@ public class FakeBanksUtils {
 				generateElement(ACCOUNT_NUMBERS), generateElement(ALLOWED_DIRECTIONS), generateAmount(maxTransactionAmount),
 				getTransactionDate(id));
 	}
-	
-	public static BigDecimal generateAmount(int maxTransactionAmount) {
-		return new BigDecimal(ThreadLocalRandom.current().nextInt(maxTransactionAmount));
+
+	private static BigDecimal generateAmount(int maxTransactionAmount) {
+		return new BigDecimal(ThreadLocalRandom.current().nextInt(maxTransactionAmount))
+				.divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
 	}
 	
 	private static LocalDateTime getTransactionDate(long minusDays) {
