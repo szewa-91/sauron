@@ -3,16 +3,16 @@ delete from USERS;
 delete from BANKS;
 
 insert into USERS (ID, USERNAME, EMAIL)
-values(1, 'Jon Snow', 'iknownothing@nightwatch.com');
+values(1, 'Jan Kowalski', 'jan@kowalski.en');
 
 insert into USERS (ID, USERNAME, EMAIL)
-values(2, 'Daenerys Targaryen', 'khaleesi_542@gmail.com');
+values(2, 'Julia Mała', 'julia-mala@email.com');
 
-insert into BANKS (ID, NAME, LOGIN_URL, API_URL)
-values(1, 'Iron Bank', 'http://login.iron-bank.bv/', 'http://iron-bank.bv/api');
+INSERT INTO BANKS (ID, NAME, LOGIN_URL, TRANSACTION_URL, BALANCE_URL)
+values(1, 'Test bank PL', 'http://login.bank-pl/', 'http://bank-pl/transactions', 'http://bank-pl/balance');
 
-insert into BANKS (ID, NAME, LOGIN_URL, API_URL)
-values(2, 'Northern Bank Of Winterfell', 'http://northernbank.nr/login', 'http://northernbank.nr/api');
+INSERT INTO BANKS (ID, NAME, LOGIN_URL, TRANSACTION_URL, BALANCE_URL)
+values(2, 'Test bank EN', 'http://login.bank-en/', 'http://bank-en/transactions', 'http://bank-en/balance');
 
 insert into BANK_ACCOUNTS (BANK_ID, USER_ID, COLOR)
 values(1, 1, 'YELLOW');

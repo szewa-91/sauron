@@ -39,8 +39,8 @@ public class BankAccountRepositoryIT {
                 account -> account.getBank().getName(),
                 account -> account.getUser().getUsername()
         ).containsExactly(
-                tuple("Iron Bank", "Jon Snow"),
-                tuple("Northern Bank Of Winterfell", "Jon Snow")
+                tuple("Test bank PL", "Jan Kowalski"),
+                tuple("Test bank EN", "Jan Kowalski")
         );
     }
 }

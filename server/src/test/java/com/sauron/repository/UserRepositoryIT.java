@@ -25,7 +25,7 @@ public class UserRepositoryIT {
 
     @Test
     public void shouldFindByUsername() {
-        Optional<User> accounts = userRepository.findByUsername("Jon Snow");
+        Optional<User> accounts = userRepository.findByUsername("Jan Kowalski");
 
         then(accounts).isNotEmpty();
     }
