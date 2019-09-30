@@ -10,8 +10,8 @@ import com.sauron.model.views.UserView;
 import com.sauron.repo.UserRepository;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
@@ -46,7 +46,7 @@ public class UserServiceImplTest {
         then(userView.getBanks()).extracting(
                 BankView::getName,
                 BankView::getColor
-        ).containsExactly(
+        ).containsExactlyInAnyOrder(
                 tuple(BANK_NAME_1, COLOR_1),
                 tuple(BANK_NAME_2, COLOR_2)
         );
@@ -64,7 +64,7 @@ public class UserServiceImplTest {
         User user = new User();
         user.setId(ID);
         user.setUsername(USERNAME);
-        user.setBankAccounts(List.of(accounts));
+        user.setBankAccounts(Set.of(accounts));
         return Optional.of(user);
     }
 

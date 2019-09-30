@@ -38,7 +38,7 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
         Collection<BankAccount> userAccounts = userRepository.findById(userId)
                 .map(User::getBankAccounts)
-                .orElse(Collections.emptyList());
+                .orElse(Collections.emptySet());
 
         return userAccounts.stream()
                 .map(acc -> fetchCurrentBalance(acc.getBank(), userId))

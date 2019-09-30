@@ -7,7 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -24,12 +25,12 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user")
-    private Collection<BankAccount> bankAccounts;
+    private Set<BankAccount> bankAccounts = new HashSet<>();
 
     public User() {
     }
 
-    public User(Long id, String username, String email, Collection<BankAccount> bankAccounts) {
+    public User(Long id, String username, String email, Set<BankAccount> bankAccounts) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -60,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public Collection<BankAccount> getBankAccounts() {
+    public Set<BankAccount> getBankAccounts() {
         return bankAccounts;
     }
 
-    public void setBankAccounts(Collection<BankAccount> bankAccounts) {
+    public void setBankAccounts(Set<BankAccount> bankAccounts) {
         this.bankAccounts = bankAccounts;
     }
 }

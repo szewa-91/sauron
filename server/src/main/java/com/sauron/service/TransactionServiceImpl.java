@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
     public Collection<Transaction> getAllTransactions(final Long userId) {
         Collection<BankAccount> userAccounts = userRepository.findById(userId)
                 .map(User::getBankAccounts)
-                .orElse(Collections.emptyList());
+                .orElse(Collections.emptySet());
 
         return userAccounts.stream()
                 .flatMap(acc -> getBankTransactions(acc.getBank(), userId).stream())
