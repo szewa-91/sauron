@@ -1,11 +1,22 @@
 package com.sauron.model.entities;
 
+import com.sauron.model.entities.util.BankApiType;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Entity
 @Table(name = "BANKS")
@@ -18,32 +29,24 @@ public class Bank {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
-    private String loginUrl;
-
-    @Column(unique = true, nullable = false)
-    private String transactionUrl;
-
-    @Column(unique = true, nullable = false)
-    private String balanceUrl;
+    @ElementCollection
+    @CollectionTable(name = "BANK_API", joinColumns = @JoinColumn(name = "BANK_ID"))
+    @MapKeyColumn(name = "BANK_API_TYPE")
+    @MapKeyEnumerated(EnumType.STRING)
+    @Column(name = "URL")
+    private Map<BankApiType, String> bankApiMap = new HashMap<>();
 
     public Bank() {
     }
 
-    public Bank(Long id, String name, String loginUrl, String transactionUrl, String balanceUrl) {
+    public Bank(Long id, String name, Map<BankApiType, String> bankApiMap) {
         this.id = id;
         this.name = name;
-        this.loginUrl = loginUrl;
-        this.transactionUrl = transactionUrl;
-        this.balanceUrl = balanceUrl;
+        this.bankApiMap = bankApiMap;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -54,27 +57,7 @@ public class Bank {
         this.name = name;
     }
 
-    public String getLoginUrl() {
-        return loginUrl;
-    }
-
-    public void setLoginUrl(String loginUrl) {
-        this.loginUrl = loginUrl;
-    }
-
-    public String getTransactionUrl() {
-        return transactionUrl;
-    }
-
-    public void setTransactionUrl(String transactionUrl) {
-        this.transactionUrl = transactionUrl;
-    }
-
-    public String getBalanceUrl() {
-        return balanceUrl;
-    }
-
-    public void setBalanceUrl(String balanceUrl) {
-        this.balanceUrl = balanceUrl;
+    public Optional<String> getBankApiUrl(BankApiType bankApiType) {
+        return Optional.ofNullable(bankApiMap.get(bankApiType));
     }
 }

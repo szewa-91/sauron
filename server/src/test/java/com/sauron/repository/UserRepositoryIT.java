@@ -15,7 +15,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Sql(value = "classpath:sql/accounts.sql")
+@Sql(value = "classpath:sql/test-data.sql")
 public class UserRepositoryIT {
 
     @Autowired
@@ -23,7 +23,7 @@ public class UserRepositoryIT {
 
     @Test
     public void shouldFindByUsername() {
-        Optional<User> accounts = userRepository.findByUsername("Jan Kowalski");
+        Optional<User> accounts = userRepository.findByUsername("regular-user");
 
         then(accounts).isNotEmpty();
     }

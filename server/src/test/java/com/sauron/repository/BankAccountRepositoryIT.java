@@ -16,7 +16,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Sql(value = "classpath:sql/accounts.sql")
+@Sql(value = "classpath:sql/test-data.sql")
 public class BankAccountRepositoryIT {
 
     @Autowired
@@ -26,7 +26,7 @@ public class BankAccountRepositoryIT {
     public void shouldFindAll() {
         Collection<BankAccount> accounts = bankAccountRepository.findAll();
 
-        then(accounts).hasSize(3);
+        then(accounts).hasSize(2);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class BankAccountRepositoryIT {
                 account -> account.getBank().getName(),
                 account -> account.getUser().getUsername()
         ).containsExactly(
-                tuple("Test bank PL", "Jan Kowalski"),
-                tuple("Test bank EN", "Jan Kowalski")
+                tuple("Full-api-bank", "regular-user"),
+                tuple("Non-balance-bank", "regular-user")
         );
     }
 }

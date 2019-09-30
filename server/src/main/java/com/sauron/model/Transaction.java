@@ -1,6 +1,6 @@
 package com.sauron.model;
 
-import com.sauron.model.entities.TransactionDirection;
+import com.sauron.model.entities.util.TransactionDirection;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
