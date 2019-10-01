@@ -1,11 +1,11 @@
 package com.sauron.fake.util;
 
-import com.sauron.model.entities.util.TransactionDirection;
+import com.sauron.model.TransactionDirection;
 
 import java.util.List;
 
-import static com.sauron.model.entities.util.TransactionDirection.PAY;
-import static com.sauron.model.entities.util.TransactionDirection.RECEIVE;
+import static com.sauron.model.TransactionDirection.PAY;
+import static com.sauron.model.TransactionDirection.RECEIVE;
 
 /**
  * Created by marcin.lopatka on 26-06-2019

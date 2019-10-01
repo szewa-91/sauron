@@ -1,7 +1,7 @@
 package com.sauron.repository;
 
+import com.sauron.model.BankApiType;
 import com.sauron.model.entities.Bank;
-import com.sauron.model.entities.util.BankApiType;
 import com.sauron.repo.BankRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +29,8 @@ public class BankRepositoryTestIT {
                 Bank::getName
         ).containsExactly(1L, "Full-api-bank");
 
-        then(bank.getBankApiUrl(BankApiType.DO_LOGIN)).get().isEqualTo("http://full-bank.com/login");
-        then(bank.getBankApiUrl(BankApiType.GET_TRANSACTIONS)).get().isEqualTo("http://full-bank.com/transactions");
-        then(bank.getBankApiUrl(BankApiType.GET_BALANCE)).get().isEqualTo("http://full-bank.com/balance");
+        then(bank.getBankApiUrl(BankApiType.DO_LOGIN)).contains("http://full-bank.com/login");
+        then(bank.getBankApiUrl(BankApiType.GET_TRANSACTIONS)).contains("http://full-bank.com/transactions");
+        then(bank.getBankApiUrl(BankApiType.GET_BALANCE)).contains("http://full-bank.com/balance");
     }
 }

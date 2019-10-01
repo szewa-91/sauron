@@ -1,4 +1,4 @@
-package com.sauron.model.entities.util;
+package com.sauron.model;
 
 public enum TransactionDirection {
     PAY, RECEIVE

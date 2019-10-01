@@ -1,13 +1,13 @@
 package com.sauron.constants;
 
+import com.sauron.model.BankApiType;
 import com.sauron.model.entities.Bank;
-import com.sauron.model.entities.util.BankApiType;
 
 import java.util.Map;
 
-import static com.sauron.model.entities.util.BankApiType.DO_LOGIN;
-import static com.sauron.model.entities.util.BankApiType.GET_BALANCE;
-import static com.sauron.model.entities.util.BankApiType.GET_TRANSACTIONS;
+import static com.sauron.model.BankApiType.DO_LOGIN;
+import static com.sauron.model.BankApiType.GET_BALANCE;
+import static com.sauron.model.BankApiType.GET_TRANSACTIONS;
 
 public final class BankConstants {
 

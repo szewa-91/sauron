@@ -1,6 +1,6 @@
 package com.sauron.model.entities;
 
-import com.sauron.model.entities.util.BankApiType;
+import com.sauron.model.BankApiType;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;

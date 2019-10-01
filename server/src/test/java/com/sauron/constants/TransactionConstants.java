@@ -8,8 +8,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static com.sauron.model.entities.util.TransactionDirection.PAY;
-import static com.sauron.model.entities.util.TransactionDirection.RECEIVE;
+import static com.sauron.model.TransactionDirection.PAY;
+import static com.sauron.model.TransactionDirection.RECEIVE;
 
 public final class TransactionConstants {
 

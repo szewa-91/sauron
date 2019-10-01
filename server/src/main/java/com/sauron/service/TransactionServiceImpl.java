@@ -14,10 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.sauron.model.entities.util.BankApiType.GET_TRANSACTIONS;
+import static com.sauron.model.BankApiType.GET_TRANSACTIONS;
 import static com.sauron.service.util.BankApiUtils.createRequestEntity;
 
 @Service
@@ -53,14 +52,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private Collection<Transaction> fetchTransactions(Bank bank, Long userId) {
-        Optional<String> apiUrl = bank.getBankApiUrl(GET_TRANSACTIONS);
-
-        Collection<Transaction> transactions = apiUrl.map(url -> restTemplate.exchange(
-                createRequestEntity(url, userId),
-                RESPONSE_TYPE).getBody())
+        return bank.getBankApiUrl(GET_TRANSACTIONS).
+                map(url -> mapToResponse(url, userId))
                 .orElse(Collections.emptyList());
+    }
 
-        return transactions != null ? transactions : Collections.emptyList();
+    private Collection<Transaction> mapToResponse(String url, Long userId) {
+        Collection<Transaction> response = restTemplate.exchange(
+                createRequestEntity(url, userId),
+                RESPONSE_TYPE).getBody();
+
+        return response != null ? response : Collections.emptyList();
     }
 
 }

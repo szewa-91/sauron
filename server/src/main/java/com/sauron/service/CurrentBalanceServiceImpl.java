@@ -13,9 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 
-import static com.sauron.model.entities.util.BankApiType.GET_BALANCE;
+import static com.sauron.model.BankApiType.GET_BALANCE;
 import static com.sauron.service.util.BankApiUtils.createRequestEntity;
 
 @Service
@@ -45,10 +44,16 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
     }
 
     private BigDecimal fetchCurrentBalance(Bank bank, Long userId) {
-        Optional<String> apiUrl = bank.getBankApiUrl(GET_BALANCE);
-        return apiUrl.map(url -> restTemplate.exchange(
-                createRequestEntity(url, userId),
-                RESPONSE_TYPE).getBody())
+        return bank.getBankApiUrl(GET_BALANCE)
+                .map(url -> mapToResponse(url, userId))
                 .orElse(BigDecimal.ZERO);
+    }
+
+    private BigDecimal mapToResponse(String url, Long userId) {
+        BigDecimal response = restTemplate.exchange(
+                createRequestEntity(url, userId),
+                RESPONSE_TYPE).getBody();
+
+        return response != null ? response : BigDecimal.ZERO;
     }
 }
