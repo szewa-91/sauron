@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.tuple;
@@ -17,8 +16,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Sql(value = "classpath:sql/accounts.sql")
-@Transactional
+@Sql(value = "classpath:sql/test-data.sql")
 public class BankAccountRepositoryIT {
 
     @Autowired
@@ -28,7 +26,7 @@ public class BankAccountRepositoryIT {
     public void shouldFindAll() {
         Collection<BankAccount> accounts = bankAccountRepository.findAll();
 
-        then(accounts).hasSize(3);
+        then(accounts).hasSize(2);
     }
 
     @Test
@@ -39,8 +37,8 @@ public class BankAccountRepositoryIT {
                 account -> account.getBank().getName(),
                 account -> account.getUser().getUsername()
         ).containsExactly(
-                tuple("Iron Bank", "Jon Snow"),
-                tuple("Northern Bank Of Winterfell", "Jon Snow")
+                tuple("Full-api-bank", "regular-user"),
+                tuple("Non-balance-bank", "regular-user")
         );
     }
 }

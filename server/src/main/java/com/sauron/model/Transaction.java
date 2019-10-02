@@ -1,7 +1,5 @@
 package com.sauron.model;
 
-import com.sauron.model.entities.TransactionDirection;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

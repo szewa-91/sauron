@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sauron.fake.util.FakeBanksConstants.*;
+import static com.sauron.fake.util.FakeBanksConstants.CONTEXT_PATH;
+import static com.sauron.fake.util.FakeBanksConstants.CURRENT_BALANCE_ENDPOINT;
+import static com.sauron.fake.util.FakeBanksConstants.TRANSACTIONS_ENDPOINT;
 import static com.sauron.fake.util.FakeBanksUtils.generateCurrentBalance;
 import static com.sauron.fake.util.FakeBanksUtils.generateTransactions;
 

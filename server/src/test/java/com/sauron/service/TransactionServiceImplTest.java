@@ -23,7 +23,7 @@ import static com.sauron.constants.TransactionConstants.PAYMENT;
 import static com.sauron.constants.TransactionConstants.TRANSACTION_FIXED_DATE;
 import static com.sauron.constants.UserConstants.MOCKED_USER;
 import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
-import static com.sauron.model.entities.TransactionDirection.PAY;
+import static com.sauron.model.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;

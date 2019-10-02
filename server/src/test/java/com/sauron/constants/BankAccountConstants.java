@@ -2,7 +2,7 @@ package com.sauron.constants;
 
 import com.sauron.model.entities.BankAccount;
 
-import java.util.List;
+import java.util.Set;
 
 import static com.sauron.constants.BankConstants.MOCKED_BANK;
 import static com.sauron.constants.UserConstants.ANOTHER_MOCKED_USER;
@@ -15,8 +15,8 @@ public final class BankAccountConstants {
     public static final String MOCKED_BANK_COLOR = "green";
     public static final BankAccount MOCKED_BANK_ACCOUNT = new BankAccount(MOCKED_BANK_ACCOUNT_ID, MOCKED_USER, MOCKED_BANK, MOCKED_BANK_COLOR);
     public static final BankAccount ANOTHER_BANK_ACCOUNT = new BankAccount(ANOTHER_MOCKED_BANK_ACCOUNT_ID, ANOTHER_MOCKED_USER, MOCKED_BANK, MOCKED_BANK_COLOR);
-    public static final List<BankAccount> MOCKED_BANK_ACCOUNTS_LIST = List.of(MOCKED_BANK_ACCOUNT);
-    public static final List<BankAccount> ANOTHER_MOCKED_BANK_ACCOUNTS_LIST = List.of(MOCKED_BANK_ACCOUNT, ANOTHER_BANK_ACCOUNT);
+    public static final Set<BankAccount> MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_ACCOUNT);
+    public static final Set<BankAccount> ANOTHER_MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_ACCOUNT, ANOTHER_BANK_ACCOUNT);
 
     private BankAccountConstants() {
     }
