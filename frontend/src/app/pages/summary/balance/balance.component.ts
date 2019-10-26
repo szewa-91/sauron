@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BalanceService } from '~/app/data/balance.service';
 import { AuthService } from '~/app/auth/auth.service';
-import { flatMap, tap } from 'node_modules/rxjs/internal/operators';
+import { tap } from 'node_modules/rxjs/internal/operators';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -20,9 +20,7 @@ export class BalanceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getUserData()
-        .pipe(
-            flatMap(user => this.balanceService.fetchCurrentBalance(user.id)),
+    this.balanceService.fetchCurrentBalance().pipe(
             tap(currentBalance => this.currentBalance = currentBalance),
             catchError(error => this.error = error)
         ).subscribe();
