@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutComponent } from './layout.component';
+import { LoginModule } from '~/app/pages/login/login.module';
 
 @NgModule({
   declarations: [MenuComponent, LayoutComponent],
   imports: [
     CommonModule,
-    LayoutRoutingModule
+    LayoutRoutingModule,
+      LoginModule
   ],
   exports: [
       LayoutComponent

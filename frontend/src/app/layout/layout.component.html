@@ -1,5 +1,5 @@
-<app-menu></app-menu>
-<div class="page-container">
+<app-menu *ngIf="isNotLoginPage()"></app-menu>
+<div class="page-container" *ngIf="isNotLoginPage()">
   <div style="width: 25%">
     <div class="dark-rounded-box"></div>
   </div>
@@ -11,3 +11,5 @@
     <div class="dark-rounded-box"></div>
   </div>
 </div>
+
+<app-login *ngIf="isLoginPage()"></app-login>
