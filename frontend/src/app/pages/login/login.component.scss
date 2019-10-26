@@ -41,3 +41,14 @@ h2 {
   text-align: center;
   padding: 10px 0 20px  0;
 }
+
+.login-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-input-placeholder {
+  width: 80%;
+}

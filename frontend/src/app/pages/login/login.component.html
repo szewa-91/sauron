@@ -1,21 +1,21 @@
 <div class="login-container">
   <div class="login-item">
     <h2 style="font-family: 'Bitstream Charter';">Log in to rule them all</h2>
-    <form style="width: 100%" >
-      <div>
-        <mat-form-field style="width: 80%; align-self: center;" >
+    <form class="login-form-container" (ngSubmit)="login()">
+      <div class="login-input-placeholder">
+        <mat-form-field class="fill">
           <input [(ngModel)]="mail" matInput placeholder="Email" value="" name="mail" type="email">
         </mat-form-field>
       </div>
-      <div>
-        <mat-form-field style="width: 80%; align-self: center;">
+      <div class="login-input-placeholder">
+        <mat-form-field class="fill">
           <input [(ngModel)]="password" matInput placeholder="Password" type="password" name="password" value="">
         </mat-form-field>
       </div>
+      <div>
+        <button mat-raised-button type="submit">Log in!</button>
+        <button mat-raised-button (click)="console.log('Wypierdalaj')">Register!</button>
+      </div>
     </form>
-    <div>
-      <button type="submit" (click)="login()">Log in!</button>
-      <button type="submit" (click)="console.log('Wypierdalaj')">Register!</button>
-    </div>
   </div>
 </div>
