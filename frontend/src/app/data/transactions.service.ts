@@ -25,16 +25,16 @@ export class TransactionsService {
         ).subscribe();
   }
 
-  public fetchTransactions(): Observable<Array<Transaction>> {
+  public getTransactions(): Observable<Array<Transaction>> {
     return this.$transactions.asObservable()
         .pipe(
             map(this.transformEveryTransactionToClassInstance) // without this mapping a transaction is not a class' instance
         );
   }
 
-  public getTransaction(id: number): Observable<Transaction> {
+  public getTransaction(uuid: string): Observable<Transaction> {
     return this.$transactions.asObservable().pipe(
-        map(transactions => transactions.find(transaction => transaction.id === id)),
+        map(transactions => transactions.find(transaction => transaction.uuid === uuid)),
         map(Transaction.instantiate)
     );
   }

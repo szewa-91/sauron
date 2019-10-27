@@ -22,7 +22,7 @@ export class TransactionDetailsComponent implements OnInit {
     this.route.paramMap
         .pipe(
             map(paramsMap => paramsMap.get('id')),
-            flatMap(id => this.transactionsService.getTransaction(Number.parseInt(id))),
+            flatMap(uuid => this.transactionsService.getTransaction(uuid)),
             tap(transaction => this.transaction = transaction),
             catchError(error => this.error = error)
         ).subscribe();

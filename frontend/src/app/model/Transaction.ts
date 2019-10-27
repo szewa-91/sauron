@@ -1,6 +1,7 @@
 export default class Transaction {
 
   constructor(rawObject) {
+    this.uuid = rawObject.uuid;
     this.id = rawObject.id;
     this.bankId = rawObject.bankId;
     this.transactionTitle = rawObject.transactionTitle;
@@ -10,6 +11,7 @@ export default class Transaction {
     this.transactionDate = rawObject.transactionDate;
   }
 
+  uuid: string;
   id: number;
   bankId: number;
   transactionTitle: string;

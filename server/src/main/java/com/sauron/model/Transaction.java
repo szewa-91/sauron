@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private String uuid;
     private Long id;
     private Long bankId;
     private String transactionTitle;
@@ -17,10 +19,12 @@ public class Transaction implements Serializable {
     private LocalDateTime transactionDate;
 
     public Transaction() {
+        uuid = generateUUID();
     }
 
     public Transaction(Long id, Long bankId, String transactionTitle, String accountNumber, TransactionDirection direction,
                        BigDecimal amount, LocalDateTime transactionDate) {
+        uuid = generateUUID();
         this.id = id;
         this.bankId = bankId;
         this.transactionTitle = transactionTitle;
@@ -29,6 +33,12 @@ public class Transaction implements Serializable {
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
+
+    private String generateUUID() {
+        return UUID.randomUUID().toString();
+    }
+
+    public String getUuid() { return uuid;}
 
     public Long getId() {
         return id;
