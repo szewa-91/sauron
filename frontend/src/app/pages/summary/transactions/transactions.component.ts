@@ -28,7 +28,7 @@ export class TransactionsComponent implements OnInit {
             tap(user => this.banks = user.banks)
         ).subscribe();
 
-    this.transactionsService.fetchTransactions()
+    this.transactionsService.getTransactions()
         .pipe(
             tap(transactions => this.transactions = transactions),
             catchError(error => this.error = error)
@@ -36,7 +36,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   onTransactionSelected(transaction: Transaction) {
-    this.router.navigate([`/summary/transactions`, transaction.id]); // TODO make id unique on backend side
+    this.router.navigate([`/summary/transactions`, transaction.uuid]);
   }
 
   resolveColor(transaction: Transaction): string {
