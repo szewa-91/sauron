@@ -1,8 +1,9 @@
 package com.sauron.service;
 
-import com.sauron.controller.LoginData;
 import com.sauron.exception.EntityNotFoundException;
-import com.sauron.model.entities.BankAccount;
+import com.sauron.model.LoginData;
+import com.sauron.model.entities.Bank;
+import com.sauron.model.entities.BankConnectionData;
 import com.sauron.model.entities.User;
 import com.sauron.model.views.BankView;
 import com.sauron.model.views.UserView;
@@ -48,17 +49,19 @@ public class UserServiceImpl implements UserService {
         userView.setId(user.getId());
         userView.setEmail(user.getEmail());
         userView.setUsername(user.getUsername());
-        userView.setBanks(user.getBankAccounts().stream()
+        userView.setBanks(user.getBankConnectionData().stream()
+                .map(BankConnectionData::getBank)
                 .map(this::convertToBankView)
                 .collect(Collectors.toList()));
+
         return userView;
     }
 
-    private BankView convertToBankView(BankAccount bankAccount) {
+    private BankView convertToBankView(Bank bankAccountMapping) {
         BankView bankView = new BankView();
-        bankView.setId(bankAccount.getBank().getId());
-        bankView.setName(bankAccount.getBank().getName());
-        bankView.setColor(bankAccount.getColor());
+        bankView.setId(bankAccountMapping.getId());
+        bankView.setName(bankAccountMapping.getName());
+
         return bankView;
     }
 }

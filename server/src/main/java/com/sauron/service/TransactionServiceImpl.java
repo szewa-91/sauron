@@ -2,7 +2,7 @@ package com.sauron.service;
 
 import com.sauron.model.Transaction;
 import com.sauron.model.entities.Bank;
-import com.sauron.model.entities.BankAccount;
+import com.sauron.model.entities.BankConnectionData;
 import com.sauron.model.entities.User;
 import com.sauron.repo.UserRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.sauron.model.BankApiType.GET_TRANSACTIONS;
@@ -36,8 +37,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Collection<Transaction> getAllTransactions(final Long userId) {
-        Collection<BankAccount> userAccounts = userRepository.findById(userId)
-                .map(User::getBankAccounts)
+        Set<BankConnectionData> userAccounts = userRepository.findById(userId)
+                .map(User::getBankConnectionData)
                 .orElse(Collections.emptySet());
 
         return userAccounts.stream()

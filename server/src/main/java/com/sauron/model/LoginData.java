@@ -1,4 +1,4 @@
-package com.sauron.controller;
+package com.sauron.model;
 
 public class LoginData {
     private String login;
