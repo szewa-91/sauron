@@ -27,7 +27,7 @@ export class AuthService {
             userData => {
               localStorage.setItem(LOGIN_KEY, userData.username);
               localStorage.setItem(USER_ID_KEY, userData.id.toString());
-              this.router.navigate(this.redirectedFrom ? [this.redirectedFrom] : ['/']);
+              this.router.navigate(this.redirectedFrom ? [this.redirectedFrom] : ['/summary']);
               this.userData$.next(userData);
             });
   }

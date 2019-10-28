@@ -1,10 +1,21 @@
-<div>
-  Welcome! Please login:
-  <div>
-    <input [(ngModel)]="mail" type="email" title="Email"/>
+<div class="login-container">
+  <div class="login-item">
+    <h2 style="font-family: 'Bitstream Charter';">Log in to rule them all</h2>
+    <form class="login-form-container" (ngSubmit)="login()">
+      <div class="login-input-placeholder">
+        <mat-form-field class="fill">
+          <input [(ngModel)]="mail" matInput placeholder="Email" value="" name="mail" type="email">
+        </mat-form-field>
+      </div>
+      <div class="login-input-placeholder">
+        <mat-form-field class="fill">
+          <input [(ngModel)]="password" matInput placeholder="Password" type="password" name="password" value="">
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button type="submit">Log in!</button>
+        <button mat-raised-button (click)="console.log('Wypierdalaj')">Register!</button>
+      </div>
+    </form>
   </div>
-  <div>
-    <input [(ngModel)]="password" type="password" title="Password"/>
-  </div>
-  <button type="submit" (click)="login()">Log in!</button>
 </div>

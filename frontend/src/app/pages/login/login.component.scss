@@ -1,0 +1,54 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./landing-page-bg.jpg");
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+  width: 22vw;
+  background: white;
+  opacity: 80%;
+  border-radius: 20px;
+  color: #202020;
+}
+
+.login-input {
+  width: 100%;
+  height: 32px;
+  margin: 24px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.mat-input-element {
+  align-self: center;
+  width: 100%;
+}
+
+h2 {
+  text-align: center;
+  padding: 10px 0 20px  0;
+}
+
+.login-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-input-placeholder {
+  width: 80%;
+}
