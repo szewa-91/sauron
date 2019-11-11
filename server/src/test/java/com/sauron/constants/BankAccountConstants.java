@@ -1,22 +1,11 @@
 package com.sauron.constants;
 
-import com.sauron.model.entities.BankAccount;
-
-import java.util.Set;
-
-import static com.sauron.constants.BankConstants.MOCKED_BANK;
-import static com.sauron.constants.UserConstants.ANOTHER_MOCKED_USER;
-import static com.sauron.constants.UserConstants.MOCKED_USER;
-
 public final class BankAccountConstants {
 
-    public static final Long MOCKED_BANK_ACCOUNT_ID = 1L;
-    public static final Long ANOTHER_MOCKED_BANK_ACCOUNT_ID = 2L;
-    public static final String MOCKED_BANK_COLOR = "green";
-    public static final BankAccount MOCKED_BANK_ACCOUNT = new BankAccount(MOCKED_BANK_ACCOUNT_ID, MOCKED_USER, MOCKED_BANK, MOCKED_BANK_COLOR);
-    public static final BankAccount ANOTHER_BANK_ACCOUNT = new BankAccount(ANOTHER_MOCKED_BANK_ACCOUNT_ID, ANOTHER_MOCKED_USER, MOCKED_BANK, MOCKED_BANK_COLOR);
-    public static final Set<BankAccount> MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_ACCOUNT);
-    public static final Set<BankAccount> ANOTHER_MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_ACCOUNT, ANOTHER_BANK_ACCOUNT);
+//    public static final BankConnectionData MOCKED_BANK_CONNECTION_DATA = new BankConnectionData(MOCKED_BANK, null, "", "", LocalDateTime.now());
+//    public static final BankConnectionData ANOTHER_BANK_CONNECTION_DATA = new BankAccountMapping(MOCKED_BANK, null, "", "", LocalDateTime.now());
+//    public static final Set<BankAccountMapping> MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_CONNECTION_DATA);
+//    public static final Set<BankAccountMapping> ANOTHER_MOCKED_BANK_ACCOUNTS_LIST = Set.of(MOCKED_BANK_CONNECTION_DATA, ANOTHER_BANK_CONNECTION_DATA);
 
     private BankAccountConstants() {
     }

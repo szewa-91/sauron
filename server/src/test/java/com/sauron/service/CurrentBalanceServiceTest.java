@@ -12,12 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static com.sauron.constants.BankConstants.MOCKED_BANK_BALANCE_URL;
 import static com.sauron.constants.TransactionConstants.CURRENT_BALANCE;
 import static com.sauron.constants.TransactionConstants.SUM_OF_BALANCES;
-import static com.sauron.constants.UserConstants.ANOTHER_MOCKED_USER;
 import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
@@ -41,7 +39,7 @@ public class CurrentBalanceServiceTest {
 
     @Test
     public void shouldReturnValidCurrentBalance() {
-        given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(ANOTHER_MOCKED_USER));
+//        given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(ANOTHER_MOCKED_USER));
         given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
                         fromHttpUrl(MOCKED_BANK_BALANCE_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
                 new ParameterizedTypeReference<BigDecimal>() {

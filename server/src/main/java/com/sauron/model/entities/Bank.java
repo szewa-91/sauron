@@ -21,6 +21,7 @@ import java.util.Optional;
 @Entity
 @Table(name = "BANKS")
 public class Bank {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, updatable = false, nullable = false)
@@ -60,4 +61,5 @@ public class Bank {
     public Optional<String> getBankApiUrl(BankApiType bankApiType) {
         return Optional.ofNullable(bankApiMap.get(bankApiType));
     }
+
 }

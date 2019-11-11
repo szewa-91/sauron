@@ -16,12 +16,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import static com.sauron.constants.BankConstants.MOCKED_BANK_TRANSACTION_URL;
 import static com.sauron.constants.TransactionConstants.PAYMENT;
 import static com.sauron.constants.TransactionConstants.TRANSACTION_FIXED_DATE;
-import static com.sauron.constants.UserConstants.MOCKED_USER;
 import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
 import static com.sauron.model.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
@@ -47,7 +45,6 @@ public class TransactionServiceImplTest {
 
     @Test
     public void allTransactionsShouldReturnValidTransaction() {
-        given(userRepository.findById(MOCKED_USER_ID)).willReturn(Optional.of(MOCKED_USER));
         given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
                         fromHttpUrl(MOCKED_BANK_TRANSACTION_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
                 new ParameterizedTypeReference<Collection<Transaction>>() {

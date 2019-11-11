@@ -1,5 +1,6 @@
 package com.sauron.controller;
 
+import com.sauron.model.LoginData;
 import com.sauron.model.views.UserView;
 import com.sauron.service.UserService;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,7 +1,7 @@
 package com.sauron.service;
 
 import com.sauron.model.entities.Bank;
-import com.sauron.model.entities.BankAccount;
+import com.sauron.model.entities.BankConnectionData;
 import com.sauron.model.entities.User;
 import com.sauron.repo.UserRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 import static com.sauron.model.BankApiType.GET_BALANCE;
 import static com.sauron.service.util.BankApiUtils.createRequestEntity;
@@ -34,8 +34,8 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
     @Override
     public BigDecimal getCurrentBalance(final Long userId) {
 
-        Collection<BankAccount> userAccounts = userRepository.findById(userId)
-                .map(User::getBankAccounts)
+        Set<BankConnectionData> userAccounts = userRepository.findById(userId)
+                .map(User::getBankConnectionData)
                 .orElse(Collections.emptySet());
 
         return userAccounts.stream()
