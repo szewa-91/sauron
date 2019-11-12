@@ -1,6 +1,6 @@
 package com.sauron.constants;
 
-import com.sauron.model.Transaction;
+import com.sauron.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -8,8 +8,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-import static com.sauron.model.TransactionDirection.PAY;
-import static com.sauron.model.TransactionDirection.RECEIVE;
+import static com.sauron.transaction.TransactionDirection.PAY;
+import static com.sauron.transaction.TransactionDirection.RECEIVE;
 
 public final class TransactionConstants {
 

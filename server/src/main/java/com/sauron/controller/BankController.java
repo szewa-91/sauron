@@ -1,7 +1,7 @@
 package com.sauron.controller;
 
-import com.sauron.model.views.BankView;
-import com.sauron.service.BankService;
+import com.sauron.view.BankService;
+import com.sauron.view.BankView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

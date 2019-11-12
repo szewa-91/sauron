@@ -1,11 +1,11 @@
 package com.sauron.fake.util;
 
-import com.sauron.model.TransactionDirection;
+import com.sauron.transaction.TransactionDirection;
 
 import java.util.List;
 
-import static com.sauron.model.TransactionDirection.PAY;
-import static com.sauron.model.TransactionDirection.RECEIVE;
+import static com.sauron.transaction.TransactionDirection.PAY;
+import static com.sauron.transaction.TransactionDirection.RECEIVE;
 
 /**
  * Created by marcin.lopatka on 26-06-2019

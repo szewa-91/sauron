@@ -1,7 +1,7 @@
 package com.sauron.controller;
 
-import com.sauron.model.Transaction;
-import com.sauron.service.TransactionService;
+import com.sauron.accountsdata.TransactionService;
+import com.sauron.transaction.Transaction;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

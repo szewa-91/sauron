@@ -1,6 +1,6 @@
 package com.sauron.fake.model;
 
-import com.sauron.model.TransactionDirection;
+import com.sauron.transaction.TransactionDirection;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
