@@ -9,12 +9,12 @@ public class UserView implements Serializable {
     private Long id;
     private String username;
     private String email;
-    private Collection<BankView> banks;
+    private Collection<BankAccountView> banks;
 
     public UserView() {
     }
 
-    public UserView(Long id, String username, String email, Collection<BankView> banks) {
+    public UserView(Long id, String username, String email, Collection<BankAccountView> banks) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -45,11 +45,11 @@ public class UserView implements Serializable {
         this.email = email;
     }
 
-    public Collection<BankView> getBanks() {
+    public Collection<BankAccountView> getBanks() {
         return banks;
     }
 
-    public void setBanks(Collection<BankView> banks) {
+    public void setBanks(Collection<BankAccountView> banks) {
         this.banks = banks;
     }
 }

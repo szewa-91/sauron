@@ -1,8 +1,6 @@
-package com.sauron.accountsdata;
+package com.sauron.view;
 
 import com.sauron.user.UserRepository;
-import com.sauron.view.UserService;
-import com.sauron.view.UserServiceImpl;
 
 import static org.mockito.Mockito.mock;
 
@@ -19,7 +17,7 @@ public class UserServiceImplTest {
 
     private UserRepository userRepository = mock(UserRepository.class);
 
-    private UserService userService = new UserServiceImpl(userRepository);
+    private UserViewService userViewService = new UserViewServiceImpl(userRepository);
 
 //    @Test
 //    public void shouldReturnUserAndBankData() {

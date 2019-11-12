@@ -1,8 +1,8 @@
 package com.sauron.controller;
 
 import com.sauron.view.LoginData;
-import com.sauron.view.UserService;
 import com.sauron.view.UserView;
+import com.sauron.view.UserViewService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:4200") // TODO add HTTP proxy to avoid such hacks
 public class UserController {
-    private final UserService userService;
+    private final UserViewService userViewService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserViewService userViewService) {
+        this.userViewService = userViewService;
     }
 
     @PostMapping("/login")
     public UserView login(@RequestBody LoginData loginData) {
-        return userService.login(loginData);
+        return userViewService.login(loginData);
     }
 
     @GetMapping("/{userId}")
     public UserView getUserData(@PathVariable("userId") Long userId) {
-        return userService.get(userId);
+        return userViewService.get(userId);
     }
 
 }

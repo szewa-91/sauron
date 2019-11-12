@@ -2,13 +2,13 @@ package com.sauron.view;
 
 import java.io.Serializable;
 
-public class BankView implements Serializable {
+public class BankAccountView implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
 
-    public BankView() {
+    public BankAccountView() {
     }
 
     public Long getId() {

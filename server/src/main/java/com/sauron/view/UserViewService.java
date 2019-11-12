@@ -1,6 +1,6 @@
 package com.sauron.view;
 
-public interface UserService {
+public interface UserViewService {
     UserView login(LoginData loginData);
     UserView get(Long userId);
 }

@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserViewServiceImpl implements UserViewService {
 
     private static final String NOT_EXISTING_USER_WITH_ID_MSG = "User with id + %d doesn't exist";
     private static final String NOT_EXISTING_USER_WITH_NAME_MSG = "User with name + %s doesn't exist";
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserViewServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -48,17 +48,17 @@ public class UserServiceImpl implements UserService {
         userView.setUsername(user.getUsername());
         userView.setBanks(user.getBankConnectionData().stream()
                 .map(BankConnectionData::getBank)
-                .map(this::convertToBankView)
+                .map(this::convertToBankAccountView)
                 .collect(Collectors.toList()));
 
         return userView;
     }
 
-    private BankView convertToBankView(Bank bankAccountMapping) {
-        BankView bankView = new BankView();
-        bankView.setId(bankAccountMapping.getId());
-        bankView.setName(bankAccountMapping.getName());
+    private BankAccountView convertToBankAccountView(Bank bankAccountMapping) {
+        BankAccountView bankAccountView = new BankAccountView();
+        bankAccountView.setId(bankAccountMapping.getId());
+        bankAccountView.setName(bankAccountMapping.getName());
 
-        return bankView;
+        return bankAccountView;
     }
 }
