@@ -1,7 +1,6 @@
-package com.sauron.accountsdata;
+package com.sauron.accountdata.transactions;
 
 import com.sauron.bank.Bank;
-import com.sauron.transaction.Transaction;
 import com.sauron.user.BankConnectionData;
 import com.sauron.user.User;
 import com.sauron.user.UserRepository;
@@ -17,7 +16,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.sauron.accountsdata.BankApiUtils.createRequestEntity;
+import static com.sauron.accountdata.BankApiUtils.createRequestEntity;
 import static com.sauron.bank.BankApiType.GET_TRANSACTIONS;
 
 @Service

@@ -1,4 +1,4 @@
-package com.sauron.transaction;
+package com.sauron.accountdata.transactions;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

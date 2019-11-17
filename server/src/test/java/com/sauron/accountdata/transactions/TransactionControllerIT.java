@@ -1,6 +1,5 @@
-package com.sauron.controller;
+package com.sauron.accountdata.transactions;
 
-import com.sauron.accountsdata.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

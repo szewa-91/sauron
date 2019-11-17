@@ -1,6 +1,4 @@
-package com.sauron.accountsdata;
-
-import com.sauron.transaction.Transaction;
+package com.sauron.accountdata.transactions;
 
 import java.util.Collection;
 

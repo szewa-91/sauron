@@ -1,6 +1,5 @@
-package com.sauron.controller;
+package com.sauron.accountdata.balance;
 
-import com.sauron.accountsdata.CurrentBalanceService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

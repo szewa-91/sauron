@@ -1,6 +1,5 @@
-package com.sauron.accountsdata;
+package com.sauron.accountdata.transactions;
 
-import com.sauron.transaction.Transaction;
 import com.sauron.user.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +16,11 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import static com.sauron.accountdata.transactions.TransactionDirection.PAY;
 import static com.sauron.constants.BankConstants.MOCKED_BANK_TRANSACTION_URL;
 import static com.sauron.constants.TransactionConstants.PAYMENT;
 import static com.sauron.constants.TransactionConstants.TRANSACTION_FIXED_DATE;
 import static com.sauron.constants.UserConstants.MOCKED_USER_ID;
-import static com.sauron.transaction.TransactionDirection.PAY;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
@@ -45,11 +44,12 @@ public class TransactionServiceImplTest {
 
     @Test
     public void allTransactionsShouldReturnValidTransaction() {
-        given(restTemplate.exchange(new RequestEntity<>(HttpMethod.GET,
+        given(restTemplate.exchange(
+                new RequestEntity<>(HttpMethod.GET,
                         fromHttpUrl(MOCKED_BANK_TRANSACTION_URL).queryParam("userId", MOCKED_USER_ID).build().toUri()),
                 new ParameterizedTypeReference<Collection<Transaction>>() {
-                }))
-                .willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
+                })
+        ).willReturn(new ResponseEntity<>(List.of(PAYMENT), HttpStatus.OK));
 
         Collection<Transaction> actual = transactionService.getAllTransactions(MOCKED_USER_ID);
 

@@ -1,4 +1,4 @@
-package com.sauron.accountsdata;
+package com.sauron.accountdata.balance;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.sauron.accountsdata;
+package com.sauron.accountdata.balance;
 
 import com.sauron.user.UserRepository;
 import org.junit.Before;

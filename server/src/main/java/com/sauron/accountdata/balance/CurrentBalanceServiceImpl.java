@@ -1,5 +1,6 @@
-package com.sauron.accountsdata;
+package com.sauron.accountdata.balance;
 
+import com.sauron.accountdata.BankApiUtils;
 import com.sauron.bank.Bank;
 import com.sauron.user.BankConnectionData;
 import com.sauron.user.User;
