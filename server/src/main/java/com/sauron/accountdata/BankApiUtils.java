@@ -6,10 +6,10 @@ import org.springframework.web.util.UriComponents;
 
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
-class BankApiUtils {
+public class BankApiUtils {
     private static final String USER_ID_PARAM = "userId";
 
-    static <T> RequestEntity<T> createRequestEntity(String url, Long userId) {
+    public static <T> RequestEntity<T> createRequestEntity(String url, Long userId) {
         UriComponents uriComponents = fromHttpUrl(url).queryParam(USER_ID_PARAM, userId).build();
         return new RequestEntity<>(HttpMethod.GET, uriComponents.toUri());
     }

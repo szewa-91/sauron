@@ -33,7 +33,6 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
     @Override
     public BigDecimal getCurrentBalance(final Long userId) {
-
         Set<BankConnectionData> userAccounts = userRepository.findById(userId)
                 .map(User::getBankConnectionData)
                 .orElse(Collections.emptySet());

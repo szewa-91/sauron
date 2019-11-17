@@ -1,8 +1,5 @@
-package com.sauron.controller;
+package com.sauron.view;
 
-import com.sauron.view.LoginData;
-import com.sauron.view.UserView;
-import com.sauron.view.UserViewService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
