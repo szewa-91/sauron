@@ -1,4 +1,4 @@
-package com.sauron.user;
+package com.sauron.account;
 
 public enum Color {
     RED, BLUE, GREEN, YELLOW

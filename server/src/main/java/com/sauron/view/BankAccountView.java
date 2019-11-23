@@ -7,6 +7,7 @@ public class BankAccountView implements Serializable {
 
     private Long id;
     private String name;
+    private String color;
 
     public BankAccountView() {
     }
@@ -27,4 +28,11 @@ public class BankAccountView implements Serializable {
         this.name = name;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

@@ -1,9 +1,9 @@
 package com.sauron.accountdata.transactions;
 
+import com.sauron.account.BankAccount;
+import com.sauron.account.User;
+import com.sauron.account.UserRepository;
 import com.sauron.bank.Bank;
-import com.sauron.user.BankConnectionData;
-import com.sauron.user.User;
-import com.sauron.user.UserRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -36,11 +36,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Collection<Transaction> getAllTransactions(final Long userId) {
-        Set<BankConnectionData> userAccounts = userRepository.findById(userId)
-                .map(User::getBankConnectionData)
+        Set<BankAccount> userAccounts = userRepository.findById(userId)
+                .map(User::getBankAccounts)
                 .orElse(Collections.emptySet());
 
         return userAccounts.stream()
+                .flatMap(acc -> acc.getBankConnectionData().stream())
                 .flatMap(acc -> getBankTransactions(acc.getBank(), userId).stream())
                 .sorted(Comparator.comparing(Transaction::getTransactionDate).reversed())
                 .collect(Collectors.toList());

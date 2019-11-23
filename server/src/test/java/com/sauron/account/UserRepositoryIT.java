@@ -1,6 +1,5 @@
-package com.sauron.user;
+package com.sauron.account;
 
-import com.sauron.bank.Bank;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,9 @@ public class UserRepositoryIT {
     }
 
     @Test
-    public void shouldFoundBankListForUser() {
+    public void shouldFoundBankAccountsListForUser() {
         Optional<User> user = userRepository.findByUsername("regular-user");
-        List<Bank> bankList = user.get().getBankConnectionData().stream()
-                .map(BankConnectionData::getBank).collect(Collectors.toList());
+        List<BankAccount> bankList = user.get().getBankAccounts().stream().collect(Collectors.toList());
 
         then(bankList).isNotEmpty();
     }

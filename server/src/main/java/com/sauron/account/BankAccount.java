@@ -1,18 +1,22 @@
-package com.sauron.user;
+package com.sauron.account;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "BANK_ACCOUNT_MAPPING")
-public class BankAccountMapping {
+@Table(name = "BANK_ACCOUNT")
+public class BankAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -26,13 +30,21 @@ public class BankAccountMapping {
     @Enumerated(EnumType.STRING)
     private Color markerColor;
 
-    public BankAccountMapping() {
+    @ElementCollection
+    @CollectionTable(
+            name = "BANK_CONNECTION_DATA",
+            joinColumns = @JoinColumn(name = "BANK_ACCOUNT_ID")
+    )
+    private Collection<BankConnectionData> bankConnectionData;
+
+    public BankAccount() {
     }
 
-    public BankAccountMapping(Long id, String name, Color markerColor) {
+    public BankAccount(Long id, String name, Color markerColor, Collection<BankConnectionData> bankConnectionData) {
         this.id = id;
         this.name = name;
         this.markerColor = markerColor;
+        this.bankConnectionData = bankConnectionData;
     }
 
     public Long getId() {
@@ -55,11 +67,19 @@ public class BankAccountMapping {
         this.markerColor = markerColor;
     }
 
+    public Collection<BankConnectionData> getBankConnectionData() {
+        return bankConnectionData;
+    }
+
+    public void setBankConnectionData(Collection<BankConnectionData> bankConnectionData) {
+        this.bankConnectionData = bankConnectionData;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BankAccountMapping that = (BankAccountMapping) o;
+        BankAccount that = (BankAccount) o;
         return Objects.equals(id, that.id);
     }
 

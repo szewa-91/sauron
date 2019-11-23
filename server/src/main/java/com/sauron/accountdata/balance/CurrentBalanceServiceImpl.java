@@ -1,10 +1,10 @@
 package com.sauron.accountdata.balance;
 
+import com.sauron.account.BankAccount;
+import com.sauron.account.User;
+import com.sauron.account.UserRepository;
 import com.sauron.accountdata.BankApiUtils;
 import com.sauron.bank.Bank;
-import com.sauron.user.BankConnectionData;
-import com.sauron.user.User;
-import com.sauron.user.UserRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -33,11 +33,12 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
     @Override
     public BigDecimal getCurrentBalance(final Long userId) {
-        Set<BankConnectionData> userAccounts = userRepository.findById(userId)
-                .map(User::getBankConnectionData)
+        Set<BankAccount> userAccounts = userRepository.findById(userId)
+                .map(User::getBankAccounts)
                 .orElse(Collections.emptySet());
 
         return userAccounts.stream()
+                .flatMap(acc -> acc.getBankConnectionData().stream())
                 .map(acc -> fetchCurrentBalance(acc.getBank(), userId))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
