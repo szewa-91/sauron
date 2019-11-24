@@ -1,8 +1,6 @@
 package com.sauron.accountdata.transactions;
 
-import com.sauron.account.BankAccount;
-import com.sauron.account.User;
-import com.sauron.account.UserRepository;
+import com.sauron.account.BankAccountRepository;
 import com.sauron.bank.Bank;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,13 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.sauron.accountdata.BankApiUtils.createRequestEntity;
 import static com.sauron.bank.BankApiType.GET_TRANSACTIONS;
+import static java.util.Collections.emptyList;
 
 @Service
 @Transactional
@@ -26,21 +23,17 @@ public class TransactionServiceImpl implements TransactionService {
     private static final ParameterizedTypeReference<Collection<Transaction>> RESPONSE_TYPE = new ParameterizedTypeReference<>() {
     };
 
-    private final UserRepository userRepository;
+    private final BankAccountRepository bankAccountRepository;
     private final RestTemplate restTemplate;
 
-    public TransactionServiceImpl(RestTemplateBuilder restTemplateBuilder, UserRepository userRepository) {
+    public TransactionServiceImpl(RestTemplateBuilder restTemplateBuilder, BankAccountRepository bankAccountRepository) {
         this.restTemplate = restTemplateBuilder.build();
-        this.userRepository = userRepository;
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     @Override
     public Collection<Transaction> getAllTransactions(final Long userId) {
-        Set<BankAccount> userAccounts = userRepository.findById(userId)
-                .map(User::getBankAccounts)
-                .orElse(Collections.emptySet());
-
-        return userAccounts.stream()
+        return bankAccountRepository.findByUserId(userId).stream()
                 .flatMap(acc -> acc.getBankConnectionData().stream())
                 .flatMap(acc -> getBankTransactions(acc.getBank(), userId).stream())
                 .sorted(Comparator.comparing(Transaction::getTransactionDate).reversed())
@@ -55,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
     private Collection<Transaction> fetchTransactions(Bank bank, Long userId) {
         return bank.getBankApiUrl(GET_TRANSACTIONS).
                 map(url -> mapToResponse(url, userId))
-                .orElse(Collections.emptyList());
+                .orElse(emptyList());
     }
 
     private Collection<Transaction> mapToResponse(String url, Long userId) {
@@ -63,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
                 createRequestEntity(url, userId),
                 RESPONSE_TYPE).getBody();
 
-        return response != null ? response : Collections.emptyList();
+        return response != null ? response : emptyList();
     }
 
 }

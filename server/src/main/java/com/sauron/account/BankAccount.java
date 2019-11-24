@@ -23,6 +23,9 @@ public class BankAccount {
     @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
+    @Column(nullable = false, name = "USER_ID")
+    private Long userId;
+
     @Column(nullable = false)
     private String name;
 

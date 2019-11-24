@@ -1,6 +1,6 @@
 package com.sauron.accountdata.transactions;
 
-import com.sauron.account.UserRepository;
+import com.sauron.account.BankAccountRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ public class TransactionServiceIT {
     private static final long BANK_2_ID = 2L;
 
     @Autowired
-    private UserRepository userRepository;
+    private BankAccountRepository bankAccountRepository;
     private TransactionService transactionService;
     private RestTemplate restTemplate;
 
@@ -56,7 +56,7 @@ public class TransactionServiceIT {
         restTemplate = mock(RestTemplate.class);
         RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
         given(builder.build()).willReturn(restTemplate);
-        transactionService = new TransactionServiceImpl(builder, userRepository);
+        transactionService = new TransactionServiceImpl(builder, bankAccountRepository);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.sauron.accountdata.balance;
 
-import com.sauron.account.UserRepository;
+import com.sauron.account.BankAccountRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
 public class CurrentBalanceServiceIT {
 
     @Autowired
-    private UserRepository userRepository;
+    private BankAccountRepository bankAccountRepository;
     private CurrentBalanceService currentBalanceService;
     private RestTemplate restTemplate;
 
@@ -38,7 +38,7 @@ public class CurrentBalanceServiceIT {
         restTemplate = mock(RestTemplate.class);
         RestTemplateBuilder builder = mock(RestTemplateBuilder.class);
         given(builder.build()).willReturn(restTemplate);
-        currentBalanceService = new CurrentBalanceServiceImpl(userRepository, builder);
+        currentBalanceService = new CurrentBalanceServiceImpl(bankAccountRepository, builder);
     }
 
     @Test
@@ -48,6 +48,5 @@ public class CurrentBalanceServiceIT {
 
         BigDecimal currentBalance = currentBalanceService.getCurrentBalance(MOCKED_USER_ID);
         then(currentBalance).isEqualTo(CURRENT_BALANCE); // One of banks without GET_TRANSACTIONS API
-
     }
 }

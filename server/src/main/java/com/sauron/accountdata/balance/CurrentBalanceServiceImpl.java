@@ -1,8 +1,6 @@
 package com.sauron.accountdata.balance;
 
-import com.sauron.account.BankAccount;
-import com.sauron.account.User;
-import com.sauron.account.UserRepository;
+import com.sauron.account.BankAccountRepository;
 import com.sauron.accountdata.BankApiUtils;
 import com.sauron.bank.Bank;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -12,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Set;
 
 import static com.sauron.bank.BankApiType.GET_BALANCE;
 
@@ -23,21 +19,17 @@ public class CurrentBalanceServiceImpl implements CurrentBalanceService {
 
     private static final ParameterizedTypeReference<BigDecimal> RESPONSE_TYPE = new ParameterizedTypeReference<>() {
     };
-    private final UserRepository userRepository;
+    private final BankAccountRepository bankAccountRepository;
     private final RestTemplate restTemplate;
 
-    public CurrentBalanceServiceImpl(UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
-        this.userRepository = userRepository;
+    public CurrentBalanceServiceImpl(BankAccountRepository bankAccountRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.bankAccountRepository = bankAccountRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
 
     @Override
     public BigDecimal getCurrentBalance(final Long userId) {
-        Set<BankAccount> userAccounts = userRepository.findById(userId)
-                .map(User::getBankAccounts)
-                .orElse(Collections.emptySet());
-
-        return userAccounts.stream()
+        return bankAccountRepository.findByUserId(userId).stream()
                 .flatMap(acc -> acc.getBankConnectionData().stream())
                 .map(acc -> fetchCurrentBalance(acc.getBank(), userId))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
