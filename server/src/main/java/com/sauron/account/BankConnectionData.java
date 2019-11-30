@@ -1,4 +1,4 @@
-package com.sauron.user;
+package com.sauron.account;
 
 
 import com.sauron.bank.Bank;
@@ -22,10 +22,6 @@ public class BankConnectionData {
     private Bank bank;
 
 
-    @ManyToOne
-    @JoinColumn(name = "BANK_ACCOUNT_MAPPING_ID")
-    private BankAccountMapping bankAccountMapping;
-
     @UniqueElements
     @Column(name = "BANK_LOGIN_TOKEN", nullable = false, updatable = false)
     private String bankLoginToken;
@@ -39,10 +35,9 @@ public class BankConnectionData {
     public BankConnectionData() {
     }
 
-    public BankConnectionData(Bank bank, BankAccountMapping bankAccountMapping, String bankLoginToken,
+    public BankConnectionData(Bank bank, String bankLoginToken,
                               String consentScope, LocalDateTime expiryDate) {
         this.bank = bank;
-        this.bankAccountMapping = bankAccountMapping;
         this.bankLoginToken = bankLoginToken;
         this.consentScope = consentScope;
         this.expiryDate = expiryDate;
@@ -50,14 +45,6 @@ public class BankConnectionData {
 
     public Bank getBank() {
         return bank;
-    }
-
-    public BankAccountMapping getBankAccountMapping() {
-        return bankAccountMapping;
-    }
-
-    public void setBankAccountMapping(BankAccountMapping bankAccountMapping) {
-        this.bankAccountMapping = bankAccountMapping;
     }
 
     public String getBankLoginToken() {
@@ -92,7 +79,6 @@ public class BankConnectionData {
     public String toString() {
         return "BankConnectionData{" +
                 "bank=" + bank +
-                ", bankAccountMapping=" + bankAccountMapping +
                 ", bankLoginToken='" + bankLoginToken + '\'' +
                 ", consentScope='" + consentScope + '\'' +
                 ", expiryDate=" + expiryDate +

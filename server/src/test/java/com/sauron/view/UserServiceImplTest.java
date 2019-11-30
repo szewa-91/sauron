@@ -1,6 +1,6 @@
 package com.sauron.view;
 
-import com.sauron.user.UserRepository;
+import com.sauron.account.UserRepository;
 
 import static org.mockito.Mockito.mock;
 

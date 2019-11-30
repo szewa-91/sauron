@@ -38,7 +38,7 @@ public class TransactionControllerIT {
     public void shouldReturnAllTransactions() throws Exception {
         given(transactionService.getAllTransactions(1L)).willReturn(Collections.emptyList());
 
-        mvc.perform(MockMvcRequestBuilders.get("/transactions")
+        mvc.perform(MockMvcRequestBuilders.get("/transactions?userId=1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

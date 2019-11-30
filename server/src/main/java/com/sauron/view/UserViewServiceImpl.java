@@ -1,10 +1,9 @@
 package com.sauron.view;
 
-import com.sauron.bank.Bank;
+import com.sauron.account.BankAccount;
+import com.sauron.account.User;
+import com.sauron.account.UserRepository;
 import com.sauron.exception.EntityNotFoundException;
-import com.sauron.user.BankConnectionData;
-import com.sauron.user.User;
-import com.sauron.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,18 +45,18 @@ public class UserViewServiceImpl implements UserViewService {
         userView.setId(user.getId());
         userView.setEmail(user.getEmail());
         userView.setUsername(user.getUsername());
-        userView.setBanks(user.getBankConnectionData().stream()
-                .map(BankConnectionData::getBank)
+        userView.setBanks(user.getBankAccounts().stream()
                 .map(this::convertToBankAccountView)
                 .collect(Collectors.toList()));
 
         return userView;
     }
 
-    private BankAccountView convertToBankAccountView(Bank bankAccountMapping) {
+    private BankAccountView convertToBankAccountView(BankAccount bankAccountMapping) {
         BankAccountView bankAccountView = new BankAccountView();
         bankAccountView.setId(bankAccountMapping.getId());
         bankAccountView.setName(bankAccountMapping.getName());
+        bankAccountView.setColor(bankAccountMapping.getMarkerColor().toString());
 
         return bankAccountView;
     }
